@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한국 전통 놀이 체험 수업 / Korean Traditional Games / Trò Chơi Dân Gian Hàn Quốc</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --navy:#161c30;
+    --navy2:#232a4a;
+    --plum:#3a2a52;
+    --gold:#c9a24b;
+    --gold-soft:#e7d4a6;
+    --cream:#f7f4ec;
+    --ink:#20263a;
+    --sub:#6b7280;
+    --line:rgba(22,28,48,0.08);
+    --c-gonggi:#3763c9;
+    --c-ddakji:#c13a4c;
+    --c-paengi:#c1811f;
+    --c-sabang:#1f9468;
+    --c-jegi:#7551c4;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;height:100%;
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background:#0b0e1a;
+    color:var(--ink);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  body{display:flex;align-items:center;justify-content:center;}
+  #stage{
+    position:relative;
+    width:1600px;
+    height:900px;
+    flex:0 0 auto;
+    overflow:hidden;
+    border-radius:6px;
+    box-shadow:0 30px 90px rgba(0,0,0,0.55);
+  }
+  .deck{
+    position:relative;
+    width:100%;height:100%;
+  }
+  .lang-switch{
+    position:absolute;top:22px;right:30px;z-index:100;
+    display:flex;gap:4px;
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    padding:5px;border-radius:999px;
+    border:1px solid var(--line);
+    box-shadow:0 2px 12px rgba(16,24,40,0.1);
+  }
+  .lang-switch button{
+    background:transparent;
+    border:none;
+    color:var(--sub);
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    font-family:inherit;
+    transition:all .18s ease;
+  }
+  .lang-switch button:hover{color:var(--navy);}
+  .lang-switch button.active{
+    background:var(--gold);
+    color:#fff;
+    box-shadow:0 2px 8px rgba(201,162,75,0.35);
+  }
+  .progressbar{
+    position:absolute;top:0;left:0;right:0;height:4px;
+    background:rgba(22,28,48,0.06);
+    z-index:99;
+  }
+  .progressbar .fill{
+    height:100%;background:linear-gradient(90deg, var(--gold-soft), var(--gold));
+    transition:width .35s ease;
+  }
+  .slide{
+    position:absolute;inset:0;
+    top:0;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:44px 88px 80px;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(201,162,75,0.06), transparent 40%),
+      radial-gradient(circle at 95% 92%, rgba(55,99,201,0.05), transparent 45%),
+      var(--cream);
+    animation:fadeIn .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .slide.active{display:flex;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .slide-inner{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:var(--accent,var(--gold));
+    background:color-mix(in srgb, var(--accent,var(--gold)) 10%, white);
+    border:1px solid color-mix(in srgb, var(--accent,var(--gold)) 25%, white);
+    padding:10px 22px;
+    border-radius:999px;
+    margin-bottom:28px;
+  }
+  .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent,var(--gold));display:inline-block;}
+  h1.slide-title{
+    font-size:74px;
+    font-weight:800;
+    margin:0 0 22px;
+    color:var(--navy);
+    line-height:1.18;
+    letter-spacing:-1.4px;
+  }
+  .subtitle{
+    font-size:32px;
+    color:var(--sub);
+    margin:0 0 40px;
+    line-height:1.5;
+    font-weight:500;
+  }
+  .card-icon{font-size:76px;line-height:1;}
+  /* TITLE SLIDE (cover: text-left / hero-right) */
+  #slide-0{
+    background:
+      radial-gradient(circle at 12% 14%, rgba(201,162,75,0.18), transparent 46%),
+      radial-gradient(circle at 90% 88%, rgba(55,99,201,0.06), transparent 45%),
+      var(--cream);
+    color:var(--ink);text-align:left;
+  }
+  #slide-0 .slide-inner{position:relative;width:100%;height:100%;max-width:100%;
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:54px;align-items:center;}
+  .cover-left{display:flex;flex-direction:column;align-items:flex-start;gap:26px;}
+  .cover-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:22px;font-weight:800;
+    color:var(--navy);letter-spacing:.4px;}
+  .cover-eyebrow::before{content:"";width:16px;height:16px;border-radius:4px;background:var(--gold);display:inline-block;}
+  #slide-0 h1{font-size:88px;font-weight:800;color:var(--navy);margin:0;letter-spacing:-2.5px;line-height:1.08;text-align:left;}
+  .cover-sub{margin:0;background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:24px 30px;font-size:28px;line-height:1.5;color:#555;font-weight:500;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04),0 8px 22px rgba(16,24,40,0.06);}
+  .presenter-card{display:flex;align-items:center;gap:22px;background:#fff;border:1px solid var(--line);
+    border-radius:22px;padding:18px 28px;box-shadow:0 1px 2px rgba(16,24,40,0.04),0 8px 22px rgba(16,24,40,0.08);}
+  .pc-avatars{display:flex;flex:0 0 auto;}
+  .pc-avatars img{width:76px;height:76px;border-radius:16px;object-fit:cover;border:3px solid #fff;
+    box-shadow:0 4px 12px rgba(16,24,40,0.16);}
+  .pc-avatars img:nth-child(2){margin-left:-16px;}
+  .pc-meta .pc-role{font-size:26px;font-weight:800;color:var(--navy);letter-spacing:.2px;}
+  .pc-meta .pc-role b{color:var(--gold);}
+  .pc-meta .pc-sub{font-size:20px;color:var(--sub);font-weight:600;margin-top:6px;}
+  .cover-tags{display:flex;gap:12px;flex-wrap:wrap;}
+  .cover-tag{background:#fff;border:1px solid var(--line);border-radius:999px;padding:12px 24px;
+    font-size:20px;font-weight:700;color:var(--navy);
+    box-shadow:0 1px 2px rgba(16,24,40,0.03),0 4px 10px rgba(16,24,40,0.05);}
+  .cover-right{display:flex;align-items:center;justify-content:center;}
+  .cover-hero{position:relative;background:#fff;border:1px solid var(--line);
+    border-radius:30px;padding:50px 44px;text-align:center;width:100%;max-width:560px;
+    box-shadow:0 2px 6px rgba(16,24,40,0.06),0 34px 70px rgba(16,24,40,0.22);}
+  .cover-hero .hero-taegeuk{width:150px;height:150px;filter:drop-shadow(0 8px 18px rgba(22,28,48,0.18));}
+  .cover-hero .hero-title{font-size:40px;font-weight:800;color:var(--navy);margin:0 0 24px;letter-spacing:-1px;}
+  .cover-hero .hero-games{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;}
+  .cover-hero .hero-games span{background:color-mix(in srgb, var(--gold) 12%, white);
+    border:1px solid color-mix(in srgb, var(--gold) 32%, white);color:var(--navy);
+    border-radius:999px;padding:11px 22px;font-size:23px;font-weight:700;}
+  /* POSTER SLIDE */
+  #slide-poster{padding:36px 60px 60px;}
+  #slide-poster .poster-img{
+    max-width:100%;max-height:760px;width:auto;border-radius:16px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.06), 0 18px 44px rgba(16,24,40,0.28);
+  }
+  /* WARM-UP SLIDE */
+  #slide-warmup .slide-title{font-size:58px;margin-bottom:16px;}
+  .warmup-body{display:flex;flex-direction:column;align-items:center;gap:26px;margin-top:4px;}
+  .warmup-video{position:relative;width:100%;max-width:720px;aspect-ratio:16/9;border-radius:20px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04),0 8px 24px rgba(16,24,40,0.12);background:#000;}
+  .warmup-video iframe,.warmup-video video{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain;background:#000;}
+  .warmup-text{display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;max-width:1150px;}
+  .warmup-text p{margin:0;font-size:33px;line-height:1.5;color:#333;font-weight:600;}
+  .warmup-text p b, .warmup-text .hi{color:var(--gold);font-weight:800;}
+  /* GOALS */
+  .goal-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:22px;}
+  .goal-list li{
+    display:flex;gap:24px;align-items:center;
+    background:#fff;border-radius:20px;padding:32px 36px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 20px rgba(16,24,40,0.06);
+    border:1px solid var(--line);
+    font-size:26px;line-height:1.5;font-weight:500;color:#333;
+  }
+  .goal-list .num{
+    flex:0 0 auto;width:54px;height:54px;border-radius:15px;
+    background:var(--gold);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:22px;box-shadow:0 2px 8px rgba(201,162,75,0.35);
+  }
+  /* SCHEDULE TABLE */
+  table.schedule{width:100%;border-collapse:collapse;background:#fff;border-radius:18px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 20px rgba(16,24,40,0.06);border:1px solid var(--line);}
+  table.schedule th{
+    background:var(--gold);color:#fff;padding:22px 28px;font-size:22px;text-align:left;
+    font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+    border-bottom:2px solid #b58f38;
+  }
+  table.schedule td{
+    padding:28px;font-size:26px;border-top:1px solid var(--line);vertical-align:top;line-height:1.5;color:#333;font-weight:500;
+  }
+  table.schedule tr:nth-child(even){background:#fbfaf6;}
+  table.schedule tr td:first-child{font-weight:700;color:var(--navy);white-space:nowrap;}
+  table.schedule tr.break-row td{background:#f1efe6;color:var(--sub);font-style:italic;}
+  table.schedule tr.break-row td:first-child{color:var(--sub);}
+  /* GAME SLIDES */
+  .game-header{display:flex;align-items:center;gap:34px;margin-bottom:40px;}
+  .icon-badge{
+    flex:0 0 auto;width:138px;height:138px;border-radius:32px;
+    background:color-mix(in srgb, var(--accent) 12%, white);
+    border:1px solid color-mix(in srgb, var(--accent) 22%, white);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .game-names .ko{font-size:66px;font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-.5px;}
+  .game-names .en{font-size:27px;color:var(--accent);font-weight:700;margin-top:10px;}
+  .game-names .vi{font-size:22px;color:var(--sub);margin-top:6px;font-weight:500;}
+  .game-body{display:grid;grid-template-columns:0.82fr 1.45fr;gap:30px;align-items:stretch;}
+  .game-body > .box{display:flex;flex-direction:column;justify-content:center;}
+  .box{
+    background:#fff;border-radius:22px;padding:38px 40px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 20px rgba(16,24,40,0.06);
+    border:1px solid var(--line);
+  }
+  .box h3{
+    margin:0 0 24px;font-size:22px;text-transform:uppercase;letter-spacing:1px;
+    color:var(--accent);font-weight:800;
+  }
+  .box ol{margin:0;padding:0;list-style:none;counter-reset:step;}
+  .box ol li{
+    margin-bottom:22px;font-size:31px;line-height:1.4;color:#333;font-weight:500;
+    padding-left:56px;position:relative;counter-increment:step;
+  }
+  .box ol li::before{
+    content:counter(step);position:absolute;left:0;top:1px;
+    width:38px;height:38px;border-radius:11px;
+    background:color-mix(in srgb, var(--accent) 14%, white);
+    color:var(--accent);font-weight:800;font-size:20px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .box ol li:last-child{margin-bottom:0;}
+  .box p{margin:0;font-size:31px;line-height:1.5;color:#333;font-weight:500;}
+  /* CAUTION BOX (was red text) */
+  .warn-note{
+    margin-top:24px;display:flex;align-items:center;gap:14px;
+    padding:18px 24px;border-radius:14px;
+    background:color-mix(in srgb, var(--gold) 12%, white);
+    border:1px solid color-mix(in srgb, var(--gold) 40%, white);
+    font-size:26px;line-height:1.4;color:var(--navy);font-weight:400;
+  }
+  .warn-note::before{
+    content:"주의";flex:0 0 auto;
+    background:var(--gold);color:#fff;font-size:18px;font-weight:800;
+    padding:6px 14px;border-radius:8px;letter-spacing:1px;
+  }
+  /* GAME MEDIA (VIDEO) */
+  .game-left{display:flex;flex-direction:column;gap:24px;}
+  .game-media{
+    position:relative;margin:0;border-radius:20px;overflow:hidden;
+    flex:1 1 auto;min-height:280px;
+    display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb, var(--accent) 8%, white);
+    border:1px solid color-mix(in srgb, var(--accent) 22%, white);
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 20px rgba(16,24,40,0.06);
+  }
+  .game-media iframe,.game-media video{width:100%;height:100%;border:0;display:block;position:absolute;inset:0;object-fit:contain;background:#000;}
+  .game-media .thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer;display:block;}
+  .game-media .play{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:84px;height:84px;border-radius:50%;background:rgba(0,0,0,0.55);
+    display:flex;align-items:center;justify-content:center;pointer-events:none;
+    transition:background .15s ease;box-shadow:0 4px 16px rgba(0,0,0,0.4);
+  }
+  .game-media:hover .play{background:#e11d2a;}
+  .game-media .play::before{content:"";margin-left:7px;
+    border-style:solid;border-width:16px 0 16px 28px;
+    border-color:transparent transparent transparent #fff;}
+  .game-media .yt-open{
+    position:absolute;right:12px;bottom:12px;z-index:3;
+    background:rgba(0,0,0,0.62);color:#fff;font-size:15px;font-weight:600;
+    padding:8px 14px;border-radius:10px;text-decoration:none;letter-spacing:.2px;
+    display:inline-flex;align-items:center;gap:6px;transition:background .15s ease;
+  }
+  .game-media .yt-open:hover{background:#e11d2a;}
+  .game-media .ph{display:none;text-align:center;color:var(--accent);padding:24px;
+    font-size:22px;font-weight:700;line-height:1.5;}
+  .game-media .ph .cam{font-size:56px;display:block;margin-bottom:14px;}
+  .game-media .ph code{display:inline-block;margin-top:12px;font-size:18px;font-weight:600;
+    background:#fff;color:var(--sub);padding:6px 14px;border-radius:10px;
+    border:1px solid var(--line);letter-spacing:.3px;}
+  .game-media.no-vid{border-style:dashed;}
+  .game-media.no-vid .ph{display:block;}
+  /* ACTIVITY SLIDES */
+  .activity-desc{font-size:26px;line-height:1.55;color:#333;background:#fff;padding:30px 34px;border-radius:20px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 20px rgba(16,24,40,0.06);border:1px solid var(--line);margin-bottom:30px;font-weight:500;}
+  .team-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:30px;}
+  .team-grid .team{
+    background:#fff;border-radius:18px;padding:26px 12px;text-align:center;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 16px rgba(16,24,40,0.05);
+    border:1px solid var(--line);border-top:5px solid var(--gold);
+  }
+  .team-grid .team .t-name{font-weight:800;color:var(--navy);font-size:22px;letter-spacing:.2px;}
+  .team-grid .team .t-sub{font-size:17px;color:var(--sub);margin-top:8px;font-weight:600;}
+  .note-line{font-size:24px;color:var(--sub);text-align:center;font-weight:500;line-height:1.5;}
+  .order-strip{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:30px 0;}
+  .order-strip .chip{
+    background:#fff;border-radius:999px;padding:16px 28px;font-weight:700;font-size:24px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 4px 12px rgba(16,24,40,0.06);
+    border:1px solid var(--line);color:var(--navy);
+  }
+  .order-strip .arrow{color:var(--gold);font-size:24px;font-weight:700;}
+  .rule-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}
+  .rule-list li{
+    background:#fff;padding:18px 26px;border-radius:16px;font-size:25px;line-height:1.4;
+    border:1px solid var(--line);
+    display:flex;gap:18px;align-items:flex-start;color:#333;font-weight:500;
+  }
+  .rule-list li .dot{
+    flex:0 0 auto;width:36px;height:36px;border-radius:10px;margin-top:1px;
+    background:var(--gold);
+    color:#fff;font-weight:800;font-size:19px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* HERITAGE (old paintings) */
+  #slide-history .heritage-intro{
+    font-size:30px;line-height:1.5;color:#333;background:#fff;padding:30px 36px;border-radius:20px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 20px rgba(16,24,40,0.06);border:1px solid var(--line);
+    margin-bottom:30px;font-weight:500;
+  }
+  .heritage-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .heritage-card{
+    background:#fff;border-radius:20px;overflow:hidden;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04), 0 6px 18px rgba(16,24,40,0.06);
+    border:1px solid var(--line);display:flex;flex-direction:column;
+  }
+  .heritage-card .art{
+    display:block;width:100%;height:auto;background:#e7d8b4;
+    border-bottom:1px solid rgba(140,110,60,0.35);
+  }
+  .heritage-card .cap{padding:20px 16px 24px;text-align:center;}
+  .heritage-card .cap .h-ko{font-weight:800;color:var(--navy);font-size:28px;letter-spacing:-.3px;}
+  .heritage-card .cap .h-desc{font-size:18px;color:var(--sub);margin-top:10px;line-height:1.45;font-weight:500;}
+  /* CLOSING */
+  #slide-11{
+    background:
+      radial-gradient(circle at 50% 6%, rgba(201,162,75,0.16), transparent 42%),
+      radial-gradient(circle at 92% 90%, rgba(55,99,201,0.06), transparent 45%),
+      var(--cream);
+    color:var(--ink);text-align:center;
+  }
+  #slide-11 h1{color:var(--navy);font-size:76px;font-weight:800;margin-bottom:26px;letter-spacing:-2px;}
+  #slide-11 p{font-size:27px;color:var(--sub);max-width:820px;margin:0 auto;line-height:1.65;font-weight:500;}
+  #slide-11 .emoji-row{font-size:58px;margin-top:44px;letter-spacing:22px;}
+  /* NAV — bottom-right controls */
+  .bottom-right{
+    position:absolute;bottom:30px;right:38px;z-index:100;
+    display:flex;align-items:center;gap:18px;
+  }
+  .nav-btn{
+    width:54px;height:54px;border-radius:50%;
+    border:1px solid var(--line);background:#fff;color:var(--navy);
+    font-size:24px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(16,24,40,0.10);
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+    font-family:inherit;
+  }
+  .nav-btn:hover{transform:translateY(-2px);background:var(--gold);color:#fff;border-color:var(--gold);}
+  .nav-btn:disabled{opacity:.35;cursor:default;transform:none;background:#fff;color:var(--navy);border-color:var(--line);}
+  .slide-counter{
+    font-size:20px;color:var(--sub);font-weight:700;letter-spacing:.4px;margin-right:4px;
+  }
+  /* PROGRESS NAV — bottom-left jegi track */
+  .progress-nav{
+    position:absolute;bottom:30px;left:38px;z-index:100;
+    display:flex;align-items:center;
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:14px 22px;box-shadow:0 4px 16px rgba(16,24,40,0.10);
+  }
+  .pn-track{position:relative;display:flex;align-items:center;gap:11px;height:34px;}
+  .pn-dot{width:11px;height:11px;padding:0;border:0;border-radius:50%;background:rgba(22,28,48,0.16);
+    transition:background .3s ease,transform .18s ease;flex:0 0 auto;cursor:pointer;}
+  .pn-dot:hover,.pn-dot:focus-visible{background:var(--gold);transform:scale(1.35);outline:none;}
+  .pn-dot.done{background:var(--gold);}
+  .pn-token{position:absolute;top:50%;left:0;pointer-events:none;
+    transform:translate(-50%,-50%);
+    transition:left .5s cubic-bezier(.5,.05,.2,1);}
+  .pn-token.is-moving{animation:paengiHop .42s ease-out;}
+  .pn-paengi{display:block;width:34px;height:54px;transform-origin:50% 50%;
+    filter:drop-shadow(0 3px 5px rgba(22,28,48,0.25));}
+  .pn-token.is-moving .pn-paengi{animation:paengiSpin .5s linear;}
+  @keyframes paengiSpin{
+    from{transform:perspective(220px) rotateY(0deg);}
+    to{transform:perspective(220px) rotateY(-720deg);}
+  }
+  @keyframes paengiHop{
+    0%,100%{margin-top:0;}
+    45%{margin-top:-9px;}
+  }
+  /* PERIOD (merged goals) — stacked vertically */
+  .period-grid{display:flex;flex-direction:column;gap:24px;margin-top:10px;}
+  .period-card{background:#fff;border-radius:22px;padding:32px 40px;border:1px solid var(--line);
+    border-left:10px solid var(--gold);box-shadow:0 1px 2px rgba(16,24,40,0.04),0 6px 20px rgba(16,24,40,0.06);
+    display:flex;align-items:center;gap:34px;}
+  .period-badge{flex:0 0 auto;background:var(--navy);color:#fff;font-size:30px;font-weight:800;
+    padding:16px 30px;border-radius:16px;letter-spacing:1px;}
+  .period-card .goal-list{gap:16px;flex:1 1 auto;}
+  .period-card .goal-list li{padding:22px 28px;font-size:30px;box-shadow:none;border:1px solid var(--line);}
+  /* TIMER */
+  .timer-page{text-align:center;}
+  .timer-wrap{
+    display:flex;flex-direction:column;align-items:center;gap:28px;
+    background:#fff;border-radius:28px;padding:48px 60px;
+    box-shadow:0 1px 2px rgba(16,24,40,0.04),0 10px 30px rgba(16,24,40,0.08);
+    border:1px solid var(--line);max-width:860px;margin:0 auto;
+  }
+  .timer-display{
+    font-size:168px;font-weight:800;line-height:1;color:var(--gold);
+    letter-spacing:2px;font-variant-numeric:tabular-nums;
+  }
+  .timer-wrap.done .timer-display{color:var(--gold);}
+  .timer-wrap.ring{animation:ringPulse .7s ease infinite alternate;}
+  @keyframes ringPulse{from{box-shadow:0 0 0 0 rgba(201,162,75,0.28);}to{box-shadow:0 0 0 18px rgba(201,162,75,0);}}
+  .timer-inputs{display:flex;align-items:center;gap:14px;font-size:28px;font-weight:700;color:var(--gold);}
+  .timer-inputs input{
+    width:128px;font-size:42px;font-weight:800;text-align:center;
+    padding:10px 8px;border:2px solid var(--gold);border-radius:14px;
+    font-family:inherit;color:var(--gold);
+    background:color-mix(in srgb, var(--gold) 12%, white);
+    accent-color:var(--gold);
+  }
+  .timer-controls{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+  .timer-btn{
+    font-family:inherit;font-size:26px;font-weight:800;cursor:pointer;
+    padding:16px 36px;border-radius:16px;border:none;
+    box-shadow:0 4px 14px rgba(0,0,0,0.1);transition:transform .12s ease;
+  }
+  .timer-btn:hover{transform:translateY(-2px);}
+  .timer-btn.start{background:var(--gold);color:#fff;}
+  .timer-btn.pause{background:var(--navy);color:#fff;}
+  .timer-btn.reset{background:#fff;color:var(--navy);border:1.5px solid var(--line);}
+  .timer-btn.set{background:var(--navy);color:#fff;font-size:23px;padding:12px 26px;}
+  .timer-caption{font-size:32px;color:#333;font-weight:600;margin-top:40px;line-height:1.5;}
+  /* MISSION CHAIN (relay slide) — horizontal cards with arrows, no shadow, no top line */
+  .mission-list{margin:24px 0 26px;display:flex;align-items:stretch;justify-content:center;gap:8px;}
+  .mission-list .m-card{
+    flex:1 1 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;
+    background:#fff;border-radius:18px;padding:26px 14px;border:1px solid var(--line);
+  }
+  .mission-list .m-name{font-size:29px;font-weight:800;color:var(--navy);line-height:1.15;}
+  .mission-list .m-cond{font-size:22px;font-weight:600;color:#333;line-height:1.4;}
+  .mission-list .m-arrow{align-self:center;color:var(--gold);font-size:38px;font-weight:800;flex:0 0 auto;}
+  /* SINGLE RULE BOX */
+  .rule-box{
+    list-style:none;counter-reset:rb;margin:0;padding:30px 40px;
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .rule-box li{
+    counter-increment:rb;position:relative;padding-left:52px;
+    font-size:26px;line-height:1.4;color:#333;font-weight:500;
+  }
+  .rule-box li::before{
+    content:counter(rb);position:absolute;left:0;top:0;
+    width:36px;height:36px;border-radius:10px;background:var(--gold);color:#fff;
+    font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;
+  }
+  /* MISSION BIG (game display) — horizontal flow, no shadow */
+  .mission-flow{display:flex;align-items:stretch;justify-content:center;gap:8px;margin-top:12px;}
+  .mflow-item{flex:1 1 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;
+    background:#fff;border-radius:22px;padding:36px 12px;border:1px solid var(--line);}
+  .mflow-item .mb-step{width:72px;height:72px;border-radius:18px;background:var(--gold);color:#fff;
+    font-size:38px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .mflow-item .mb-name{font-size:36px;font-weight:800;color:var(--navy);line-height:1.15;}
+  .mflow-item .mb-cond{font-size:25px;font-weight:600;color:#333;line-height:1.4;}
+  .mflow-arrow{align-self:center;color:var(--gold);font-size:46px;font-weight:800;flex:0 0 auto;}
+  /* AWARD */
+  #slide-award{text-align:center;background:
+    radial-gradient(circle at 50% 8%, rgba(201,162,75,0.22), transparent 45%),
+    var(--cream);}
+  #slide-award .trophy-img{width:250px;height:auto;margin-bottom:16px;filter:drop-shadow(0 12px 24px rgba(201,162,75,0.4));}
+  #slide-award h1{font-size:130px;font-weight:800;color:var(--navy);letter-spacing:-2px;margin:0 0 24px;}
+  .award-sub{font-size:52px;color:var(--gold);font-weight:800;margin-top:6px;line-height:1.4;}
+  /* NOTICE */
+  #slide-notice .notice-box{
+    background:#fff;border-radius:24px;padding:44px 52px;border:1px solid var(--line);
+    font-size:37px;line-height:1.7;color:#333;font-weight:500;
+  }
+  #slide-notice .notice-box .hi{color:var(--navy);font-weight:800;}
+  #slide-notice .notice-box .accent{color:var(--gold);font-weight:800;}
+  #slide-notice .thanks{margin-top:44px;text-align:center;}
+  #slide-notice .thanks .t-big{font-size:60px;font-weight:800;color:var(--navy);letter-spacing:-1px;}
+  #slide-notice .thanks .emoji-row{font-size:50px;margin-top:18px;letter-spacing:18px;}
+</style>
+</head>
+<body>
+
+<div id="stage">
+<div class="lang-switch">
+  <button data-lang="vi">Tiếng Việt</button>
+  <button data-lang="ko" class="active">한국어</button>
+  <button data-lang="en">English</button>
+</div>
+<div class="progressbar"><div class="fill" id="progressFill"></div></div>
+
+<div class="deck">
+
+  <!-- SLIDE 0: TITLE (cover) -->
+  <section class="slide active" id="slide-0">
+    <div class="slide-inner">
+      <div class="cover-left">
+        <span class="cover-eyebrow" data-i18n="cover_eyebrow">전통놀이 체험 수업</span>
+        <h1 data-i18n="s0_title">한국 전통 놀이 체험</h1>
+        <p class="cover-sub" data-i18n="cover_sub">다섯 가지 한국 전통놀이를 함께 배우고 즐겨보아요!</p>
+        <div class="presenter-card">
+          <div class="pc-avatars">
+            <img src="김예진.png" alt="김예진">
+            <img src="최세연.png" alt="최세연">
+          </div>
+          <div class="pc-meta">
+            <div class="pc-role"><b data-i18n="host_label">진행자</b> · 김예진 · 최세연</div>
+            <div class="pc-sub" data-i18n="cover_sub2">한국 전통 놀이 체험 수업</div>
+          </div>
+        </div>
+      </div>
+      <div class="cover-right">
+        <div class="cover-hero">
+          <div class="hero-title" data-i18n="hero_title">5가지 전통놀이</div>
+          <div class="hero-games">
+            <span data-i18n="g1_ko">공기놀이</span>
+            <span data-i18n="g2_ko">딱지치기</span>
+            <span data-i18n="g3_ko">팽이돌리기</span>
+            <span data-i18n="g4_ko">사방치기</span>
+            <span data-i18n="g5_ko">제기차기</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE: SQUID GAME POSTER -->
+  <section class="slide" id="slide-poster">
+    <div class="slide-inner" style="text-align:center;">
+      <img class="poster-img" src="오징어게임%20포스터.jpg" alt="오징어게임 포스터">
+    </div>
+  </section>
+
+  <!-- SLIDE: WARM-UP -->
+  <section class="slide" id="slide-warmup">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="warm_eyebrow">WARM-UP</span>
+      <h1 class="slide-title" data-i18n="warm_title">워밍업 게임: 무궁화 꽃이 피었습니다</h1>
+      <div class="warmup-body">
+        <div class="warmup-video">
+          <video src="영상/무궁화꽃이피었습니다.mp4" controls preload="metadata" playsinline controlsList="nodownload"></video>
+        </div>
+        <div class="warmup-text">
+          <p data-i18n="warm_p1">베트남의 'Một, hai, ba'는 한국의 '무궁화 꽃이 피었습니다'와 같아요!</p>
+          <p data-i18n="warm_p2">오늘 게임을 '무궁화 꽃이 피었습니다.'라는 한국 구호로 해보아요!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE: GOALS + FLOW (merged) -->
+  <section class="slide" id="slide-goals">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s1_eyebrow">CLASS OVERVIEW</span>
+      <h1 class="slide-title" data-i18n="s1_title">오늘의 목표</h1>
+      <p class="subtitle" data-i18n="s1_subtitle">놀이로 배우고, 몸으로 즐기는 한국 문화 체험</p>
+      <div class="period-grid">
+        <div class="period-card">
+          <span class="period-badge" data-i18n="period1_label">1교시</span>
+          <ul class="goal-list">
+            <li><span class="num">1</span><span data-i18n="s1_g1">한국 전통 놀이 5가지의 이름과 방법을 배운다</span></li>
+            <li><span class="num">2</span><span data-i18n="s1_g2">직접 체험하며 한국 문화와 가까워진다</span></li>
+          </ul>
+        </div>
+        <div class="period-card">
+          <span class="period-badge" data-i18n="period2_label">2교시</span>
+          <ul class="goal-list">
+            <li><span class="num">3</span><span data-i18n="s1_g3">팀 활동과 계주 경기로 협동심과 즐거운 경쟁을 느낀다</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE: HERITAGE (old paintings) -->
+  <section class="slide" id="slide-history">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="hist_eyebrow">OUR HERITAGE</span>
+      <h1 class="slide-title" data-i18n="hist_title">5가지의 한국 전통놀이를 배워봐요!</h1>
+      <div class="heritage-intro" data-i18n="hist_intro">이 놀이들은 특별한 도구 없이 즐길 수 있는 한국의 전통놀이입니다. 이를 통해 협동과 즐거움을 느낄 수 있어요!</div>
+      <div class="heritage-grid">
+
+        <!-- 공기놀이 -->
+        <div class="heritage-card">
+          <svg class="art" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="옛날 공기놀이 그림">
+            <defs><radialGradient id="hv1" cx="50%" cy="42%" r="65%"><stop offset="60%" stop-color="#eaddbc"/><stop offset="100%" stop-color="#d8c69c"/></radialGradient></defs>
+            <rect width="240" height="200" fill="url(#hv1)"/>
+            <g stroke="rgba(120,95,55,0.10)" stroke-width="1"><line x1="0" y1="56" x2="240" y2="52"/><line x1="0" y1="120" x2="240" y2="123"/><line x1="0" y1="168" x2="240" y2="165"/></g>
+            <rect x="6" y="6" width="228" height="188" rx="4" fill="none" stroke="#c1a76f" stroke-width="1.5"/>
+            <path d="M28,176 Q120,164 214,176" fill="none" stroke="rgba(90,65,35,0.35)" stroke-width="2" stroke-linecap="round"/>
+            <g stroke="#4a3520" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+              <!-- left child seated -->
+              <path d="M44,176 Q72,160 100,176 L96,183 Q72,189 48,183 Z" fill="#efe7d2"/>
+              <path d="M54,152 Q54,132 72,131 Q90,132 90,152 Q90,166 72,168 Q54,166 54,152 Z" fill="#35506f"/>
+              <path d="M60,150 L72,140 L84,150" fill="none" stroke="#e7d8b4" stroke-width="2"/>
+              <path d="M86,142 Q102,124 100,104" fill="none" stroke="#35506f" stroke-width="6"/>
+              <circle cx="100" cy="101" r="5" fill="#f0d2a8"/>
+              <circle cx="72" cy="114" r="13" fill="#f0d2a8"/>
+              <path d="M60,111 Q72,96 84,111" fill="#2a1e14" stroke="none"/>
+              <circle cx="72" cy="98" r="4.5" fill="#2a1e14" stroke="none"/>
+              <!-- right child seated -->
+              <path d="M140,176 Q168,160 196,176 L192,183 Q168,189 144,183 Z" fill="#efe7d2"/>
+              <path d="M150,152 Q150,132 168,131 Q186,132 186,152 Q186,166 168,168 Q150,166 150,152 Z" fill="#a8412f"/>
+              <path d="M156,150 L168,140 L180,150" fill="none" stroke="#e7d8b4" stroke-width="2"/>
+              <path d="M152,144 Q136,150 126,162" fill="none" stroke="#a8412f" stroke-width="6"/>
+              <circle cx="124" cy="164" r="5" fill="#f0d2a8"/>
+              <circle cx="168" cy="114" r="13" fill="#f0d2a8"/>
+              <path d="M156,111 Q168,96 180,111" fill="#2a1e14" stroke="none"/>
+              <circle cx="168" cy="98" r="4.5" fill="#2a1e14" stroke="none"/>
+            </g>
+            <g fill="#6b5a3a" stroke="none">
+              <circle cx="116" cy="172" r="4"/><circle cx="128" cy="176" r="4"/><circle cx="106" cy="177" r="4"/><circle cx="120" cy="85" r="4.2"/>
+            </g>
+            <g stroke="#b23b2e" stroke-width="1.6" fill="none"><rect x="202" y="164" width="24" height="24" rx="3"/><path d="M208,170 h12 M214,170 v12 M208,182 h12"/></g>
+          </svg>
+          <div class="cap"><div class="h-ko" data-i18n="g1_ko">공기놀이</div><div class="h-desc" data-i18n="hist_c1">예로부터 작은 돌만 있으면 어디서나 즐기던 놀이</div></div>
+        </div>
+
+        <!-- 딱지치기 -->
+        <div class="heritage-card">
+          <svg class="art" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="옛날 딱지치기 그림">
+            <defs><radialGradient id="hv2" cx="50%" cy="42%" r="65%"><stop offset="60%" stop-color="#eaddbc"/><stop offset="100%" stop-color="#d8c69c"/></radialGradient></defs>
+            <rect width="240" height="200" fill="url(#hv2)"/>
+            <g stroke="rgba(120,95,55,0.10)" stroke-width="1"><line x1="0" y1="56" x2="240" y2="52"/><line x1="0" y1="120" x2="240" y2="123"/><line x1="0" y1="168" x2="240" y2="165"/></g>
+            <rect x="6" y="6" width="228" height="188" rx="4" fill="none" stroke="#c1a76f" stroke-width="1.5"/>
+            <path d="M24,178 Q120,166 216,178" fill="none" stroke="rgba(90,65,35,0.35)" stroke-width="2" stroke-linecap="round"/>
+            <g stroke="#4a3520" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+              <!-- swinging child, bent over -->
+              <path d="M70,178 L74,150 M88,178 L84,150" fill="none" stroke="#efe7d2" stroke-width="9"/>
+              <path d="M62,150 Q66,128 84,126 Q100,130 96,150 Q90,160 78,160 Q66,158 62,150 Z" fill="#35506f"/>
+              <path d="M92,132 Q112,120 118,100" fill="none" stroke="#35506f" stroke-width="6.5"/>
+              <circle cx="120" cy="97" r="5.5" fill="#f0d2a8"/>
+              <path d="M66,138 Q56,150 58,164" fill="none" stroke="#35506f" stroke-width="6"/>
+              <circle cx="58" cy="166" r="5" fill="#f0d2a8"/>
+              <circle cx="86" cy="112" r="12.5" fill="#f0d2a8"/>
+              <path d="M74,110 Q86,95 98,110" fill="#2a1e14" stroke="none"/>
+              <circle cx="86" cy="97" r="4.5" fill="#2a1e14" stroke="none"/>
+              <!-- watching child squatting -->
+              <path d="M158,178 Q176,168 192,178 L189,184 Q176,189 161,184 Z" fill="#efe7d2"/>
+              <path d="M160,158 Q160,142 176,141 Q192,142 192,158 Q192,170 176,171 Q160,170 160,158 Z" fill="#4f7a5f"/>
+              <circle cx="176" cy="126" r="11.5" fill="#f0d2a8"/>
+              <path d="M165,124 Q176,110 187,124" fill="#2a1e14" stroke="none"/>
+              <circle cx="176" cy="112" r="4" fill="#2a1e14" stroke="none"/>
+            </g>
+            <g stroke="#4a3520" stroke-width="1.6"><rect x="118" y="170" width="20" height="14" rx="2" fill="#c39a3e" transform="rotate(-8 128 177)"/><rect x="138" y="174" width="18" height="12" rx="2" fill="#a8412f" transform="rotate(6 147 180)"/></g>
+            <g stroke="#4a3520" stroke-width="1.4" fill="none" stroke-linecap="round"><path d="M96,146 l7,-5 M100,150 l8,-4"/></g>
+            <g stroke="#b23b2e" stroke-width="1.6" fill="none"><rect x="202" y="164" width="24" height="24" rx="3"/><path d="M208,170 h12 M214,170 v12 M208,182 h12"/></g>
+          </svg>
+          <div class="cap"><div class="h-ko" data-i18n="g2_ko">딱지치기</div><div class="h-desc" data-i18n="hist_c2">골목마다 아이들이 종이를 접어 즐기던 놀이</div></div>
+        </div>
+
+        <!-- 팽이돌리기 -->
+        <div class="heritage-card">
+          <svg class="art" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="옛날 팽이돌리기 그림">
+            <defs><radialGradient id="hv3" cx="50%" cy="42%" r="65%"><stop offset="60%" stop-color="#eaddbc"/><stop offset="100%" stop-color="#d8c69c"/></radialGradient></defs>
+            <rect width="240" height="200" fill="url(#hv3)"/>
+            <g stroke="rgba(120,95,55,0.10)" stroke-width="1"><line x1="0" y1="56" x2="240" y2="52"/><line x1="0" y1="120" x2="240" y2="123"/><line x1="0" y1="168" x2="240" y2="165"/></g>
+            <rect x="6" y="6" width="228" height="188" rx="4" fill="none" stroke="#c1a76f" stroke-width="1.5"/>
+            <path d="M24,178 Q120,166 216,178" fill="none" stroke="rgba(90,65,35,0.35)" stroke-width="2" stroke-linecap="round"/>
+            <g stroke="#4a3520" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+              <!-- standing child with whip -->
+              <path d="M64,178 L66,150 M82,178 L80,150" fill="none" stroke="#efe7d2" stroke-width="9"/>
+              <path d="M54,150 Q54,128 73,127 Q92,128 92,150 Q92,162 73,164 Q54,162 54,150 Z" fill="#a8412f"/>
+              <path d="M61,148 L73,138 L85,148" fill="none" stroke="#e7d8b4" stroke-width="2"/>
+              <circle cx="73" cy="110" r="12.5" fill="#f0d2a8"/>
+              <path d="M61,108 Q73,93 85,108" fill="#2a1e14" stroke="none"/>
+              <circle cx="73" cy="95" r="4.5" fill="#2a1e14" stroke="none"/>
+              <!-- arm with whip stick -->
+              <path d="M88,138 Q108,132 122,124" fill="none" stroke="#a8412f" stroke-width="6"/>
+              <path d="M122,124 L152,116" fill="none" stroke="#7a5a30" stroke-width="4"/>
+              <path d="M152,116 Q168,126 176,150" fill="none" stroke="#6b5a3a" stroke-width="1.8"/>
+            </g>
+            <!-- spinning top -->
+            <g stroke="#4a3520" stroke-width="2" stroke-linejoin="round">
+              <path d="M164,150 L184,150 L174,168 Z" fill="#c39a3e"/>
+              <line x1="174" y1="168" x2="174" y2="176" stroke-width="2.4"/>
+              <ellipse cx="174" cy="150" rx="10" ry="3.4" fill="#8a5a2a"/>
+            </g>
+            <g stroke="rgba(90,65,35,0.4)" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M150,150 q-8,4 -6,14"/><path d="M198,150 q8,4 6,14"/><path d="M186,144 q10,-2 14,3"/></g>
+            <g stroke="#b23b2e" stroke-width="1.6" fill="none"><rect x="202" y="164" width="24" height="24" rx="3"/><path d="M208,170 h12 M214,170 v12 M208,182 h12"/></g>
+          </svg>
+          <div class="cap"><div class="h-ko" data-i18n="g3_ko">팽이돌리기</div><div class="h-desc" data-i18n="hist_c3">마당과 겨울 얼음판에서 대대로 이어져 온 놀이</div></div>
+        </div>
+
+        <!-- 사방치기 -->
+        <div class="heritage-card">
+          <svg class="art" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="옛날 사방치기 그림">
+            <defs><radialGradient id="hv4" cx="50%" cy="42%" r="65%"><stop offset="60%" stop-color="#eaddbc"/><stop offset="100%" stop-color="#d8c69c"/></radialGradient></defs>
+            <rect width="240" height="200" fill="url(#hv4)"/>
+            <g stroke="rgba(120,95,55,0.10)" stroke-width="1"><line x1="0" y1="56" x2="240" y2="52"/><line x1="0" y1="120" x2="240" y2="123"/><line x1="0" y1="168" x2="240" y2="165"/></g>
+            <rect x="6" y="6" width="228" height="188" rx="4" fill="none" stroke="#c1a76f" stroke-width="1.5"/>
+            <!-- hopscotch grid on ground -->
+            <g stroke="rgba(90,65,35,0.5)" stroke-width="2" fill="none">
+              <path d="M96,182 L120,166 L156,166 L136,182 Z"/>
+              <path d="M120,166 L134,157 L166,157 L156,166"/>
+              <path d="M134,157 L145,150 L174,150 L166,157"/>
+              <line x1="145" y1="150" x2="151" y2="146"/><line x1="174" y1="150" x2="179" y2="146"/><path d="M151,146 L179,146"/>
+            </g>
+            <circle cx="128" cy="171" r="4.5" fill="#6b5a3a"/>
+            <g stroke="#4a3520" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+              <!-- hopping child, one leg up -->
+              <path d="M72,176 L74,150" fill="none" stroke="#efe7d2" stroke-width="9"/>
+              <path d="M80,150 Q94,158 96,172" fill="none" stroke="#efe7d2" stroke-width="8"/>
+              <path d="M56,150 Q56,128 75,127 Q94,128 94,150 Q94,162 75,164 Q56,162 56,150 Z" fill="#35506f"/>
+              <path d="M63,148 L75,138 L87,148" fill="none" stroke="#e7d8b4" stroke-width="2"/>
+              <path d="M60,134 Q46,128 40,116" fill="none" stroke="#35506f" stroke-width="5.5"/>
+              <path d="M90,134 Q104,128 110,116" fill="none" stroke="#35506f" stroke-width="5.5"/>
+              <circle cx="75" cy="110" r="12.5" fill="#f0d2a8"/>
+              <path d="M63,108 Q75,93 87,108" fill="#2a1e14" stroke="none"/>
+              <circle cx="75" cy="95" r="4.5" fill="#2a1e14" stroke="none"/>
+            </g>
+            <g stroke="rgba(90,65,35,0.4)" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M40,150 q-4,-8 2,-14"/><path d="M110,150 q4,-8 -2,-14"/></g>
+            <g stroke="#b23b2e" stroke-width="1.6" fill="none"><rect x="202" y="164" width="24" height="24" rx="3"/><path d="M208,170 h12 M214,170 v12 M208,182 h12"/></g>
+          </svg>
+          <div class="cap"><div class="h-ko" data-i18n="g4_ko">사방치기</div><div class="h-desc" data-i18n="hist_c4">땅바닥에 금을 그어 온 동네가 함께한 놀이</div></div>
+        </div>
+
+        <!-- 제기차기 -->
+        <div class="heritage-card">
+          <svg class="art" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="옛날 제기차기 그림">
+            <defs><radialGradient id="hv5" cx="50%" cy="42%" r="65%"><stop offset="60%" stop-color="#eaddbc"/><stop offset="100%" stop-color="#d8c69c"/></radialGradient></defs>
+            <rect width="240" height="200" fill="url(#hv5)"/>
+            <g stroke="rgba(120,95,55,0.10)" stroke-width="1"><line x1="0" y1="56" x2="240" y2="52"/><line x1="0" y1="120" x2="240" y2="123"/><line x1="0" y1="168" x2="240" y2="165"/></g>
+            <rect x="6" y="6" width="228" height="188" rx="4" fill="none" stroke="#c1a76f" stroke-width="1.5"/>
+            <path d="M24,180 Q120,168 216,180" fill="none" stroke="rgba(90,65,35,0.35)" stroke-width="2" stroke-linecap="round"/>
+            <g stroke="#4a3520" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+              <!-- child kicking jegi, one leg raised inward -->
+              <path d="M100,180 L100,150" fill="none" stroke="#efe7d2" stroke-width="9"/>
+              <path d="M100,150 Q88,152 78,144" fill="none" stroke="#efe7d2" stroke-width="8.5"/>
+              <path d="M82,150 Q82,128 101,127 Q120,128 120,150 Q120,162 101,164 Q82,162 82,150 Z" fill="#4f7a5f"/>
+              <path d="M89,148 L101,138 L113,148" fill="none" stroke="#e7d8b4" stroke-width="2"/>
+              <path d="M86,134 Q72,130 66,120" fill="none" stroke="#4f7a5f" stroke-width="5.5"/>
+              <path d="M116,134 Q130,130 136,120" fill="none" stroke="#4f7a5f" stroke-width="5.5"/>
+              <circle cx="101" cy="110" r="12.5" fill="#f0d2a8"/>
+              <path d="M89,108 Q101,93 113,108" fill="#2a1e14" stroke="none"/>
+              <circle cx="101" cy="95" r="4.5" fill="#2a1e14" stroke="none"/>
+            </g>
+            <!-- jegi above inner foot -->
+            <g stroke="#4a3520" stroke-width="1.6" stroke-linecap="round">
+              <circle cx="72" cy="126" r="5" fill="#a8412f"/>
+              <path d="M72,121 L68,108 M72,121 L72,106 M72,121 L76,108" fill="none" stroke="#c39a3e" stroke-width="2"/>
+            </g>
+            <g stroke="rgba(90,65,35,0.4)" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M84,132 q-8,-2 -12,-10"/><path d="M60,138 q-8,-2 -10,-9"/></g>
+            <g stroke="#b23b2e" stroke-width="1.6" fill="none"><rect x="202" y="164" width="24" height="24" rx="3"/><path d="M208,170 h12 M214,170 v12 M208,182 h12"/></g>
+          </svg>
+          <div class="cap"><div class="h-ko" data-i18n="g5_ko">제기차기</div><div class="h-desc" data-i18n="hist_c5">엽전을 천으로 싸 만들어 차던 데서 유래한 놀이</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: GONGGI -->
+  <section class="slide" id="slide-3" style="--accent:var(--gold);">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s_game_eyebrow1">GAME 1 / 5</span>
+      <div class="game-header">
+        <div class="game-names">
+          <div class="ko" data-i18n="g1_ko">공기놀이</div>
+          <div class="en" data-i18n="g1_en">Gonggi (Five Stones)</div>
+          <div class="vi" data-i18n="g1_vi">Trò chơi 5 viên đá (Gonggi)</div>
+        </div>
+      </div>
+      <div class="game-body">
+        <div class="game-left">
+          <figure class="game-media no-vid" data-game="gonggi">
+            <div class="ph"><span data-i18n="video_hint">유튜브 링크를 넣어주세요</span><br><code>gonggi</code></div>
+          </figure>
+          <div class="box">
+            <h3 data-i18n="materials_label">준비물</h3>
+            <p data-i18n="g1_materials">공깃돌 5개</p>
+          </div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="howto_label">놀이 방법</h3>
+          <ol>
+            <li data-i18n="g1_step1">공깃돌 5개를 바닥에 흩어놓는다</li>
+            <li data-i18n="g1_step2">공깃돌 1개를 던져 올리고, 바닥의 공깃돌 1개를 집은 뒤 떨어지는 공깃돌을 받는다</li>
+            <li data-i18n="g1_step3">이 과정을 반복해 바닥의 공깃돌을 모두 집는다</li>
+            <li data-i18n="g1_step4">마지막에는 공깃돌 5개를 모두 던져 손등으로 받는다</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: DDAKJI -->
+  <section class="slide" id="slide-4" style="--accent:var(--gold);">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s_game_eyebrow2">GAME 2 / 5</span>
+      <div class="game-header">
+        <div class="game-names">
+          <div class="ko" data-i18n="g2_ko">딱지치기</div>
+          <div class="en" data-i18n="g2_en">Ddakji (Paper Flipping)</div>
+          <div class="vi" data-i18n="g2_vi">Trò chơi lật giấy (Ddakji)</div>
+        </div>
+      </div>
+      <div class="game-body">
+        <div class="game-left">
+          <figure class="game-media no-vid" data-game="ddakji">
+            <div class="ph"><span data-i18n="video_hint">유튜브 링크를 넣어주세요</span><br><code>ddakji</code></div>
+          </figure>
+          <div class="box">
+            <h3 data-i18n="materials_label">준비물</h3>
+            <p data-i18n="g2_materials">종이 딱지 2개 이상 (1인당 1개)</p>
+          </div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="howto_label">놀이 방법</h3>
+          <ol>
+            <li data-i18n="g2_step1">상대방의 딱지를 바닥에 놓는다</li>
+            <li data-i18n="g2_step2">내 딱지로 힘껏 내리쳐 바람을 일으킨다</li>
+            <li data-i18n="g2_step3">상대 딱지가 뒤집히면 승리!</li>
+            <li data-i18n="g2_step4">뒤집히지 않으면 공격과 수비를 교대한다</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: PAENGI -->
+  <section class="slide" id="slide-5" style="--accent:var(--gold);">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s_game_eyebrow3">GAME 3 / 5</span>
+      <div class="game-header">
+        <div class="game-names">
+          <div class="ko" data-i18n="g3_ko">팽이돌리기</div>
+          <div class="en" data-i18n="g3_en">Paengi (Spinning Top)</div>
+          <div class="vi" data-i18n="g3_vi">Quay con quay (Paengi)</div>
+        </div>
+      </div>
+      <div class="game-body">
+        <div class="game-left">
+          <figure class="game-media no-vid" data-game="paengi">
+            <div class="ph"><span data-i18n="video_hint">유튜브 링크를 넣어주세요</span><br><code>paengi</code></div>
+          </figure>
+          <div class="box">
+            <h3 data-i18n="materials_label">준비물</h3>
+            <p data-i18n="g3_materials">나무 팽이, 팽이채(끈)</p>
+          </div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="howto_label">놀이 방법</h3>
+          <ol>
+            <li data-i18n="g3_step1">팽이에 끈을 감는다</li>
+            <li data-i18n="g3_step2">끈을 당겨 팽이를 바닥에 던지듯 돌린다</li>
+            <li data-i18n="g3_step3">팽이채로 옆면을 쳐서 계속 돌게 한다</li>
+            <li data-i18n="g3_step4">가장 오래 도는 사람이 승리</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: SABANGCHIGI -->
+  <section class="slide" id="slide-6" style="--accent:var(--gold);">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s_game_eyebrow4">GAME 4 / 5</span>
+      <div class="game-header">
+        <div class="game-names">
+          <div class="ko" data-i18n="g4_ko">사방치기</div>
+          <div class="en" data-i18n="g4_en">Sabangchigi (Korean Hopscotch)</div>
+          <div class="vi" data-i18n="g4_vi">Trò chơi ô ăn quan nhảy lò cò (Sabangchigi)</div>
+        </div>
+      </div>
+      <div class="game-body">
+        <div class="game-left">
+          <figure class="game-media no-vid" data-game="sabangchigi">
+            <div class="ph"><span data-i18n="video_hint">유튜브 링크를 넣어주세요</span><br><code>sabangchigi</code></div>
+          </figure>
+          <div class="box">
+            <h3 data-i18n="materials_label">준비물</h3>
+            <p data-i18n="g4_materials">바닥에 그린 8칸 판, 작은 납작돌(비석)</p>
+          </div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="howto_label">놀이 방법</h3>
+          <ol>
+            <li data-i18n="g4_step1">아무 숫자 칸에 돌을 던진다</li>
+            <li data-i18n="g4_step2">돌이 있는 칸을 피해 숫자 순서대로 한 발 또는 두 발로 뛰어 끝까지 갔다 돌아온다</li>
+            <li data-i18n="g4_step3">돌아오는 길에 돌을 주워온다</li>
+          </ol>
+          <div class="warn-note" data-i18n="g4_warn">선을 밟거나, 선 밖을 벗어나면 안 돼요!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: JEGICHAGI -->
+  <section class="slide" id="slide-7" style="--accent:var(--gold);">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s_game_eyebrow5">GAME 5 / 5</span>
+      <div class="game-header">
+        <div class="game-names">
+          <div class="ko" data-i18n="g5_ko">제기차기</div>
+          <div class="en" data-i18n="g5_en">Jegichagi (Shuttlecock Kicking)</div>
+          <div class="vi" data-i18n="g5_vi">Đá cầu lông vũ Hàn Quốc (Jegichagi)</div>
+        </div>
+      </div>
+      <div class="game-body">
+        <div class="game-left">
+          <figure class="game-media no-vid" data-game="jegichagi">
+            <div class="ph"><span data-i18n="video_hint">유튜브 링크를 넣어주세요</span><br><code>jegichagi</code></div>
+          </figure>
+          <div class="box">
+            <h3 data-i18n="materials_label">준비물</h3>
+            <p data-i18n="g5_materials">제기</p>
+          </div>
+        </div>
+        <div class="box">
+          <h3 data-i18n="howto_label">놀이 방법</h3>
+          <ol>
+            <li data-i18n="g5_step1">제기를 손으로 살짝 띄운다</li>
+            <li data-i18n="g5_step2">발 안쪽(옆면)으로 제기를 차올린다</li>
+            <li data-i18n="g5_step3">땅에 떨어뜨리지 않고 연속으로 찬다</li>
+            <li data-i18n="g5_step4">가장 많이 찬 사람이 승리</li>
+          </ol>
+          <div class="warn-note" data-i18n="g5_warn">제기가 땅에 떨어지면 차례가 넘어가요!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE: EXPERIENCE TIMER (reconstructed) -->
+  <section class="slide timer-page" id="slide-experience">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s8_eyebrow">ACTIVITY 1</span>
+      <h1 class="slide-title" data-i18n="exp_title">체험해보아요!</h1>
+      <div class="timer-wrap" data-timer data-min="0" data-sec="0">
+        <div class="timer-display">00:00</div>
+        <div class="timer-inputs">
+          <input type="number" class="timer-min" min="0" max="180" value="0"><span data-i18n="unit_min">분</span>
+          <input type="number" class="timer-sec" min="0" max="59" value="0"><span data-i18n="unit_sec">초</span>
+          <button class="timer-btn set" data-i18n="btn_set">설정</button>
+        </div>
+        <div class="timer-controls">
+          <button class="timer-btn start" data-i18n="btn_start">시작</button>
+          <button class="timer-btn pause" data-i18n="btn_pause">일시정지</button>
+          <button class="timer-btn reset" data-i18n="btn_reset">초기화</button>
+        </div>
+      </div>
+      <div class="timer-caption" data-i18n="exp_caption">주어진 시간 동안 한 게임씩 모두 체험해보세요.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE: BREAK TIMER (10 min) -->
+  <section class="slide timer-page" id="slide-break">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="break_eyebrow">BREAK</span>
+      <h1 class="slide-title" data-i18n="break_title">쉬는 시간</h1>
+      <div class="timer-wrap" data-timer data-min="10" data-sec="0">
+        <div class="timer-display">10:00</div>
+        <div class="timer-inputs">
+          <input type="number" class="timer-min" min="0" max="180" value="10"><span data-i18n="unit_min">분</span>
+          <input type="number" class="timer-sec" min="0" max="59" value="0"><span data-i18n="unit_sec">초</span>
+          <button class="timer-btn set" data-i18n="btn_set">설정</button>
+        </div>
+        <div class="timer-controls">
+          <button class="timer-btn start" data-i18n="btn_start">시작</button>
+          <button class="timer-btn pause" data-i18n="btn_pause">일시정지</button>
+          <button class="timer-btn reset" data-i18n="btn_reset">초기화</button>
+        </div>
+      </div>
+      <div class="timer-caption" data-i18n="break_caption">10분 후에 다시 모여요!</div>
+    </div>
+  </section>
+
+  <!-- SLIDE: RELAY (reconstructed) -->
+  <section class="slide" id="slide-relay">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="s9_eyebrow">ACTIVITY 2</span>
+      <h1 class="slide-title" data-i18n="s9_title">릴레이 경기</h1>
+      <div class="mission-list">
+        <div class="m-card"><span class="m-name" data-i18n="g1_ko">공기놀이</span><span class="m-cond" data-i18n="cond_gonggi">1단계 성공하면 통과</span></div>
+        <span class="m-arrow">→</span>
+        <div class="m-card"><span class="m-name" data-i18n="g2_ko">딱지치기</span><span class="m-cond" data-i18n="cond_ddakji">딱지 뒤집으면 통과</span></div>
+        <span class="m-arrow">→</span>
+        <div class="m-card"><span class="m-name" data-i18n="g3_ko">팽이돌리기</span><span class="m-cond" data-i18n="cond_paengi">팽이가 10초 이상 돌면 통과</span></div>
+        <span class="m-arrow">→</span>
+        <div class="m-card"><span class="m-name" data-i18n="g4_ko">사방치기</span><span class="m-cond" data-i18n="cond_sabang">실수없이 왕복하면 통과</span></div>
+        <span class="m-arrow">→</span>
+        <div class="m-card"><span class="m-name" data-i18n="g5_ko">제기차기</span><span class="m-cond" data-i18n="cond_jegi">연속 3번 이상 차면 통과</span></div>
+      </div>
+      <ol class="rule-box">
+        <li data-i18n="relay_rule1">팀원 5명이 각각 1종목씩 담당해요.</li>
+        <li data-i18n="relay_rule2">앞 단계의 종목을 통과해야 다음 단계로 넘어갈 수 있어요.</li>
+        <li data-i18n="relay_rule3">이때, 팀당 한 번씩 흑기사 찬스가 있습니다. '찬스!(chance)'라고 손을 들고 외치면 사용할 수 있어요. 흑기사는 담당하는 종목이 없는 팀원만 할 수 있어요. (흑기사 찬스는 꼭 사용하지 않아도 돼요)</li>
+        <li data-i18n="relay_rule4">2팀씩 동시에 대결하며 팀마다 완료한 시간을 잴 거예요.</li>
+        <li data-i18n="relay_rule5">가장 빠른 시간 내에 완료한 팀이 우승이에요!</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SLIDE: TEAM MEETING TIMER (5 min) -->
+  <section class="slide timer-page" id="slide-meeting">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="meet_eyebrow">TEAM TIME</span>
+      <h1 class="slide-title" data-i18n="meet_title">팀별 회의 시간</h1>
+      <div class="timer-wrap" data-timer data-min="5" data-sec="0">
+        <div class="timer-display">05:00</div>
+        <div class="timer-inputs">
+          <input type="number" class="timer-min" min="0" max="180" value="5"><span data-i18n="unit_min">분</span>
+          <input type="number" class="timer-sec" min="0" max="59" value="0"><span data-i18n="unit_sec">초</span>
+          <button class="timer-btn set" data-i18n="btn_set">설정</button>
+        </div>
+        <div class="timer-controls">
+          <button class="timer-btn start" data-i18n="btn_start">시작</button>
+          <button class="timer-btn pause" data-i18n="btn_pause">일시정지</button>
+          <button class="timer-btn reset" data-i18n="btn_reset">초기화</button>
+        </div>
+      </div>
+      <div class="timer-caption" data-i18n="meet_caption">각자 담당할 종목과 팀별 전략(흑기사) 등을 이야기하세요!</div>
+    </div>
+  </section>
+
+  <!-- SLIDE: MISSION CHAIN (big, for game) -->
+  <section class="slide" id="slide-mission">
+    <div class="slide-inner">
+      <div class="mission-flow">
+        <div class="mflow-item"><span class="mb-step">1</span><span class="mb-name" data-i18n="g1_ko">공기놀이</span><span class="mb-cond" data-i18n="cond_gonggi">1단계 성공하면 통과</span></div>
+        <span class="mflow-arrow">→</span>
+        <div class="mflow-item"><span class="mb-step">2</span><span class="mb-name" data-i18n="g2_ko">딱지치기</span><span class="mb-cond" data-i18n="cond_ddakji">딱지 뒤집으면 통과</span></div>
+        <span class="mflow-arrow">→</span>
+        <div class="mflow-item"><span class="mb-step">3</span><span class="mb-name" data-i18n="g3_ko">팽이돌리기</span><span class="mb-cond" data-i18n="cond_paengi">팽이가 10초 이상 돌면 통과</span></div>
+        <span class="mflow-arrow">→</span>
+        <div class="mflow-item"><span class="mb-step">4</span><span class="mb-name" data-i18n="g4_ko">사방치기</span><span class="mb-cond" data-i18n="cond_sabang">실수없이 왕복하면 통과</span></div>
+        <span class="mflow-arrow">→</span>
+        <div class="mflow-item"><span class="mb-step">5</span><span class="mb-name" data-i18n="g5_ko">제기차기</span><span class="mb-cond" data-i18n="cond_jegi">연속 3번 이상 차면 통과</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE: AWARD -->
+  <section class="slide" id="slide-award">
+    <div class="slide-inner">
+      <svg class="trophy-img" viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="우승 트로피">
+        <defs>
+          <linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e7d4a6"/><stop offset="0.5" stop-color="#c9a24b"/><stop offset="1" stop-color="#a9822f"/>
+          </linearGradient>
+        </defs>
+        <path d="M52,42 C22,42 22,94 62,98" fill="none" stroke="url(#goldg)" stroke-width="11" stroke-linecap="round"/>
+        <path d="M148,42 C178,42 178,94 138,98" fill="none" stroke="url(#goldg)" stroke-width="11" stroke-linecap="round"/>
+        <path d="M50,32 H150 V60 C150,102 122,122 100,122 C78,122 50,102 50,60 Z" fill="url(#goldg)"/>
+        <text x="100" y="94" text-anchor="middle" font-size="54" font-weight="800" fill="#fff" font-family="Pretendard, sans-serif">1</text>
+        <rect x="91" y="122" width="18" height="28" fill="url(#goldg)"/>
+        <rect x="64" y="150" width="72" height="15" rx="4" fill="url(#goldg)"/>
+        <rect x="50" y="165" width="100" height="20" rx="6" fill="url(#goldg)"/>
+      </svg>
+      <h1 data-i18n="award_title">우승</h1>
+      <div class="award-sub" data-i18n="award_sub">축하합니다!</div>
+    </div>
+  </section>
+
+  <!-- SLIDE: NOTICE (tomorrow) -->
+  <section class="slide" id="slide-notice">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="notice_eyebrow">NOTICE</span>
+      <h1 class="slide-title" data-i18n="notice_title">내일 수업 공지</h1>
+      <div class="notice-box">
+        <span class="hi" data-i18n="notice_food">한국 음식 — 떡볶이, 화채 만들기</span><br>
+        <span data-i18n="notice_body">화채 재료로 과일은 <span class="accent">수박</span>만 준비되어 있을 예정입니다. 다른 과일이나 젤리 등을 가져오시면 더 맛있는 화채를 만들 수 있습니다!</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="progress-nav">
+  <div class="pn-track" id="pnTrack">
+    <div class="pn-token" id="pnToken" aria-label="회전하는 팽이">
+      <svg class="pn-paengi" viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- upright Korean spinning top: handle, broad disk, tapered body, and point -->
+        <rect x="16.5" y="2" width="7" height="22" rx="3.5" fill="#57371f"/>
+        <path d="M1 25C1 35 7 41 20 53C33 41 39 35 39 25Z" fill="#9a5a28"/>
+        <path d="M1 25C1 32 8 36 20 36C32 36 39 32 39 25V31C39 37 32 41 20 41C8 41 1 37 1 31Z" fill="#c7843f"/>
+        <ellipse cx="20" cy="25" rx="19" ry="10" fill="#b86f32"/>
+        <ellipse cx="20" cy="25" rx="12.5" ry="5.5" fill="#dfaa61"/>
+        <ellipse cx="20" cy="25" rx="5" ry="2.1" fill="#f5d99b"/>
+        <path d="M20 53v5" stroke="#57371f" stroke-width="4" stroke-linecap="round"/>
+        <path d="M17.8 57h4.4L20 60Z" fill="#57371f"/>
+      </svg>
+    </div>
+  </div>
+</div>
+<div class="bottom-right">
+  <div class="slide-counter"><span id="curNum">1</span> / <span id="totalNum">17</span></div>
+  <button class="nav-btn" id="prevBtn">‹</button>
+  <button class="nav-btn" id="nextBtn">›</button>
+</div>
+
+</div>
+
+<script>
+/* ===========================================================
+   ▼▼▼  게임별 영상 파일 ▼▼▼
+   "영상" 폴더에 저장된 mp4 경로입니다. 파일을 바꾸면 영상이 바뀝니다.
+   (더블클릭으로 열어도 인터넷 없이 재생됩니다)
+   =========================================================== */
+const gameVideos = {
+  gonggi:      "영상/공기.mp4",
+  ddakji:      "영상/딱지.mp4",
+  paengi:      "영상/팽이.mp4",
+  sabangchigi: "영상/사방치기.mp4",
+  jegichagi:   "영상/제기.mp4"
+};
+/* ▲▲▲  여기까지만 수정하면 됩니다  ▲▲▲ */
+
+function loadVideos(){
+  document.querySelectorAll(".game-media").forEach(el=>{
+    const src = gameVideos[el.dataset.game];
+    if(!src){ el.classList.add("no-vid"); return; }
+    el.classList.remove("no-vid");
+    const v = document.createElement("video");
+    v.src = encodeURI(src);
+    v.controls = true;
+    v.preload = "metadata";
+    v.playsInline = true;
+    v.setAttribute("controlsList", "nodownload");
+    el.innerHTML = "";
+    el.appendChild(v);
+  });
+}
+
+const translations = {
+  ko: {
+    brandName: "한국 전통 놀이 교실",
+    s0_title: "한국 전통 놀이 체험",
+    s0_sub: "제주대학교 &times; 동아대학교",
+    s0_meta: "대상: 대학생 30명 &nbsp;·&nbsp; 시간: 총 약 2시간 &nbsp;·&nbsp; 종목: 공기놀이 · 딱지치기 · 팽이돌리기 · 사방치기 · 제기차기",
+    s1_eyebrow: "CLASS OVERVIEW",
+    s1_title: "오늘의 목표",
+    s1_subtitle: "놀이로 배우고, 몸으로 즐기는 한국 문화 체험",
+    s1_g1: "한국 전통 놀이 5가지의 이름과 방법을 배운다",
+    s1_g2: "직접 체험하며 한국 문화와 가까워진다",
+    s1_g3: "팀 활동과 계주 경기로 협동심과 즐거운 경쟁을 느낀다",
+    period1_label: "1교시", period2_label: "2교시", act_label: "활동",
+    period1_act: "놀이 소개 · 시범 → 스테이션 체험",
+    period2_act: "계주 경기 → 시상",
+    g4_warn: "선을 밟거나, 선 밖을 벗어나면 안 돼요!",
+    g5_warn: "제기가 땅에 떨어지면 차례가 넘어가요!",
+    exp_title: "체험해보아요!",
+    exp_caption: "주어진 시간 동안 한 게임씩 모두 체험해보세요.",
+    unit_min: "분", unit_sec: "초",
+    btn_set: "설정", btn_start: "시작", btn_pause: "일시정지", btn_reset: "초기화",
+    cond_gonggi: "1단계 성공하면 통과",
+    cond_ddakji: "딱지 뒤집으면 통과",
+    cond_paengi: "팽이가 10초 이상 돌면 통과",
+    cond_sabang: "실수없이 왕복하면 통과",
+    cond_jegi: "연속 3번 이상 차면 통과",
+    relay_rule1: "팀원 5명이 각각 1종목씩 담당해요.",
+    relay_rule2: "앞 단계의 종목을 통과해야 다음 단계로 넘어갈 수 있어요.",
+    relay_rule3: "이때, 팀당 한 번씩 흑기사 찬스가 있습니다. '찬스!(chance)'라고 손을 들고 외치면 사용할 수 있어요. 흑기사는 담당하는 종목이 없는 팀원만 할 수 있어요. (흑기사 찬스는 꼭 사용하지 않아도 돼요)",
+    relay_rule4: "2팀씩 동시에 대결하며 팀마다 완료한 시간을 잴 거예요.",
+    relay_rule5: "가장 빠른 시간 내에 완료한 팀이 우승이에요!",
+    meet_eyebrow: "팀 회의", meet_title: "팀별 회의 시간",
+    meet_caption: "각자 담당할 종목과 팀별 전략(흑기사) 등을 이야기하세요!",
+    award_title: "우승", award_lbl: "Winner",
+    award_sub: "축하합니다!",
+    notice_eyebrow: "공지", notice_title: "내일 수업 공지",
+    notice_food: "한국 음식 — 떡볶이, 화채 만들기",
+    notice_body: "화채 재료로 과일은 <span class=\"accent\">수박</span>만 준비되어 있을 예정입니다. 다른 과일이나 젤리 등을 가져오시면 더 맛있는 화채를 만들 수 있습니다!",
+    host_label: "진행자",
+    cover_eyebrow: "전통놀이 체험 수업",
+    cover_sub: "다섯 가지 한국 전통놀이를 함께 배우고 즐겨보아요!",
+    cover_sub2: "한국 전통 놀이 체험 수업",
+    cover_tag1: "전통놀이", cover_tag3: "문화 체험",
+    hero_title: "5가지 전통놀이",
+    warm_eyebrow: "워밍업", warm_title: "워밍업 게임: 무궁화 꽃이 피었습니다",
+    warm_p1: "베트남의 <b>'Một, hai, ba'</b>는 한국의 <b>'무궁화 꽃이 피었습니다'</b>와 같아요!",
+    warm_p2: "오늘 게임을 '무궁화 꽃이 피었습니다.'라는 한국 구호로 해보아요!",
+    break_eyebrow: "쉬는 시간", break_title: "쉬는 시간",
+    break_caption: "10분 후에 다시 모여요!",
+    s2_eyebrow: "FLOW",
+    s2_title: "수업 진행 흐름",
+    s2_subtitle: "45분 수업 · 15분 휴식 구성 · 시간은 현장 상황에 맞춰 조절",
+    s2_h1: "활동", s2_h2: "내용", s2_h3: "예상 시간",
+    s2_r1_p: "도입 · 안전수칙 · 놀이 소개", s2_r1_c: "오늘의 목표·안전 수칙 안내 + 5종목 규칙과 시범", s2_r1_d: "약 15분",
+    s2_r2_p: "스테이션 로테이션", s2_r2_c: "6인 1팀 × 5팀, 5개 스테이션을 순회하며 체험", s2_r2_d: "약 30분",
+    s2_r3_p: "휴식", s2_r3_c: "잠깐 쉬어가기", s2_r3_d: "15분",
+    s2_r4_p: "계주 경기", s2_r4_c: "5인 1팀 × 6팀, 2팀씩 대결 → 결승·시상", s2_r4_d: "약 45분",
+    hist_eyebrow: "우리 전통",
+    hist_title: "5가지의 한국 전통놀이를 배워봐요!",
+    hist_intro: "이 놀이들은 특별한 도구 없이 즐길 수 있는 한국의 전통놀이입니다. 이를 통해 협동과 즐거움을 느낄 수 있어요!",
+    hist_c1: "작은 돌 5개를 던지고 받는 놀이",
+    hist_c2: "종이 딱지를 쳐서 뒤집는 놀이",
+    hist_c3: "팽이를 돌려 오래 돌리는 놀이",
+    hist_c4: "돌을 던지고 칸을 뛰는 놀이",
+    hist_c5: "제기를 발로 차 올리는 놀이",
+    materials_label: "준비물", howto_label: "놀이 방법", tip_label: "TIP", video_hint: "유튜브 링크를 넣어주세요", video_open: "▶ 유튜브에서 열기",
+    s_game_eyebrow1: "GAME 1 / 5", s_game_eyebrow2: "GAME 2 / 5", s_game_eyebrow3: "GAME 3 / 5",
+    s_game_eyebrow4: "GAME 4 / 5", s_game_eyebrow5: "GAME 5 / 5",
+    g1_ko: "공기놀이", g1_en: "Gonggi (Five Stones)", g1_vi: "Trò chơi 5 viên đá (Gonggi)",
+    g1_materials: "공깃돌 5개",
+    g1_step1: "공깃돌 5개를 바닥에 흩어놓는다",
+    g1_step2: "공깃돌 1개를 던져 올리고, 바닥의 공깃돌 1개를 집은 뒤 떨어지는 공깃돌을 받는다",
+    g1_step3: "이 과정을 반복해 바닥의 공깃돌을 모두 집는다",
+    g1_step4: "마지막에는 공깃돌 5개를 모두 던져 손등으로 받는다",
+    g1_tip: "처음에는 공깃돌 1개로 던지고 받는 연습부터 시작해요",
+    g2_ko: "딱지치기", g2_en: "Ddakji (Paper Flipping)", g2_vi: "Trò chơi lật giấy (Ddakji)",
+    g2_materials: "종이 딱지 2개 이상 (1인당 1개)",
+    g2_step1: "상대방의 딱지를 바닥에 놓는다",
+    g2_step2: "내 딱지로 힘껏 내리쳐 바람을 일으킨다",
+    g2_step3: "상대 딱지가 뒤집히면 승리!",
+    g2_step4: "뒤집히지 않으면 공격과 수비를 교대한다",
+    g2_tip: "팔 전체보다 손목 스냅을 이용하면 더 잘 뒤집혀요",
+    g3_ko: "팽이돌리기", g3_en: "Paengi (Spinning Top)", g3_vi: "Quay con quay (Paengi)",
+    g3_materials: "나무 팽이, 팽이채(끈)",
+    g3_step1: "팽이에 끈을 감는다",
+    g3_step2: "끈을 당겨 팽이를 바닥에 던지듯 돌린다",
+    g3_step3: "팽이채로 옆면을 쳐서 계속 돌게 한다",
+    g3_step4: "가장 오래 도는 사람이 승리",
+    g3_tip: "손목 스냅으로 끈을 당겨야 힘 있게 돌아가요",
+    g4_ko: "사방치기", g4_en: "Sabangchigi (Korean Hopscotch)", g4_vi: "Trò chơi ô ăn quan nhảy lò cò (Sabangchigi)",
+    g4_materials: "바닥에 그린 8칸 판, 작은 납작돌(비석)",
+    g4_step1: "아무 숫자 칸에 돌을 던진다",
+    g4_step2: "돌이 있는 칸을 피해 숫자 순서대로 한 발 또는 두 발로 뛰어 끝까지 갔다 돌아온다",
+    g4_step3: "돌아오는 길에 돌을 주워온다",
+    g4_tip: "선을 밟거나 균형을 잃으면 다음 사람에게 순서가 넘어가요",
+    g5_ko: "제기차기", g5_en: "Jegichagi (Shuttlecock Kicking)", g5_vi: "Đá cầu lông vũ Hàn Quốc (Jegichagi)",
+    g5_materials: "제기",
+    g5_step1: "제기를 손으로 살짝 띄운다",
+    g5_step2: "발 안쪽(옆면)으로 제기를 차올린다",
+    g5_step3: "땅에 떨어뜨리지 않고 연속으로 찬다",
+    g5_step4: "가장 많이 찬 사람이 승리",
+    g5_tip: "처음엔 벽이나 친구와 함께 연습하면 좋아요",
+    s8_eyebrow: "ACTIVITY 1",
+    s8_title: "체험활동 1 : 스테이션 로테이션",
+    s8_desc: "30명을 6인 1팀 × 5팀으로 나눠, 5개의 놀이 스테이션을 순서대로 돌며 모든 종목을 체험합니다.",
+    s8_people: "6인",
+    s8_note: "스테이션당 약 5분씩 체험 → 신호에 맞춰 다음 스테이션으로 이동 (5개 스테이션 모두 순회)",
+    s9_eyebrow: "ACTIVITY 2",
+    s9_title: "릴레이 경기",
+    s9_desc: "학생 수준을 고려하여 5인 1팀 × 6팀으로 재편성하고, 2팀씩 대결하는 계주 경기를 진행합니다.",
+    s9_rule1: "팀원 5명이 각각 1종목씩 순서대로 담당한다",
+    s9_rule2: "한 종목을 완료하면 다음 선수에게 신호(하이파이브 등)를 전달한다",
+    s9_rule3: "2팀씩 짝을 지어 동시에 대결하며, 먼저 5종목을 모두 완료한 팀이 승리한다",
+    s10_eyebrow: "SAFETY & TIPS",
+    s10_title: "안전 수칙 & 진행 팁",
+    s10_r1: "미끄러지지 않는 신발과 편한 복장을 착용한다",
+    s10_r2: "팽이채, 딱지 등 도구는 서로 안전 거리를 두고 다룬다",
+    s10_r3: "팀별로 진행요원(봉사자)을 배치해 안전을 관리한다",
+    s10_r4: "경쟁보다 즐거움이 우선! 서로 응원하는 분위기를 만든다",
+    s11_title: "감사합니다!",
+    s11_body: "오늘 함께해 주셔서 감사합니다.<br>배운 한국 전통 놀이를 친구들과 계속 즐겨보세요!"
+  },
+  en: {
+    brandName: "Korean Traditional Games Class",
+    s0_title: "Korean Traditional Games Experience",
+    s0_sub: "Jeju National University &times; Dong-A University",
+    s0_meta: "Participants: 30 university students &nbsp;·&nbsp; Duration: about 2 hours total &nbsp;·&nbsp; Games: Gonggi · Ddakji · Paengi · Sabangchigi · Jegichagi",
+    s1_eyebrow: "CLASS OVERVIEW",
+    s1_title: "Today's Goals",
+    s1_subtitle: "Learn through play, enjoy Korean culture with your body",
+    s1_g1: "Learn the names and rules of 5 traditional Korean games",
+    s1_g2: "Get closer to Korean culture through hands-on experience",
+    s1_g3: "Feel teamwork and friendly competition through team activities and a relay race",
+    period1_label: "Period 1", period2_label: "Period 2", act_label: "Activities",
+    period1_act: "Game intro & demos → station experience",
+    period2_act: "Relay race → awards",
+    g4_warn: "Don't step on a line or go outside the lines!",
+    g5_warn: "If the jegi drops, the turn passes on!",
+    exp_title: "Let's Try It!",
+    exp_caption: "Try every game, one at a time, within the given time.",
+    unit_min: "min", unit_sec: "sec",
+    btn_set: "Set", btn_start: "Start", btn_pause: "Pause", btn_reset: "Reset",
+    cond_gonggi: "Pass by clearing level 1",
+    cond_ddakji: "Pass by flipping a ddakji",
+    cond_paengi: "Pass if the top spins 10+ seconds",
+    cond_sabang: "Pass with a clean round trip",
+    cond_jegi: "Pass with 3+ kicks in a row",
+    relay_rule1: "Each of the 5 members takes charge of one game.",
+    relay_rule2: "You can move to the next stage only after clearing the previous one.",
+    relay_rule3: "Each team gets one \"black knight\" chance. Raise your hand and shout \"Chance!\" to use it. Only a member with no assigned game can be the black knight. (You don't have to use it.)",
+    relay_rule4: "Two teams compete at once, and each team's finish time is measured.",
+    relay_rule5: "The team that finishes in the fastest time wins!",
+    meet_eyebrow: "TEAM TIME", meet_title: "Team Meeting Time",
+    meet_caption: "Discuss who takes which game and your team strategy (black knight)!",
+    award_title: "Winner", award_lbl: "Winner",
+    award_sub: "Congratulations!",
+    notice_eyebrow: "NOTICE", notice_title: "Tomorrow's Class Notice",
+    notice_food: "Korean food — making Tteokbokki &amp; Hwachae",
+    notice_body: "For the hwachae, only <span class=\"accent\">watermelon</span> will be prepared as fruit. If you bring other fruit or jelly, we can make an even tastier hwachae!",
+    host_label: "Hosts",
+    cover_eyebrow: "Traditional Games Class",
+    cover_sub: "Let's learn and enjoy 5 Korean traditional games together!",
+    cover_sub2: "Korean Traditional Games Class",
+    cover_tag1: "Traditional Games", cover_tag3: "Culture",
+    hero_title: "5 Traditional Games",
+    warm_eyebrow: "WARM-UP", warm_title: "Warm-up: Mugunghwa (Red Light, Green Light)",
+    warm_p1: "Vietnam's <b>'Một, hai, ba'</b> is just like Korea's <b>'Mugunghwa kkoci pieotseumnida'</b>!",
+    warm_p2: "Let's play today's game with the Korean chant 'Mugunghwa kkoci pieotseumnida'!",
+    break_eyebrow: "BREAK", break_title: "Break Time",
+    break_caption: "Let's meet back in 10 minutes!",
+    s2_eyebrow: "FLOW",
+    s2_title: "Class Flow",
+    s2_subtitle: "45-min sessions with a 15-min break · adjust timing on-site",
+    s2_h1: "Activity", s2_h2: "Content", s2_h3: "Est. Time",
+    s2_r1_p: "Intro · Safety · Game Guide", s2_r1_c: "Share goals & safety rules + rules and demos of all 5 games", s2_r1_d: "~15 min",
+    s2_r2_p: "Station Rotation", s2_r2_c: "5 teams of 6 rotate through all 5 game stations", s2_r2_d: "~30 min",
+    s2_r3_p: "Break", s2_r3_c: "Short rest", s2_r3_d: "15 min",
+    s2_r4_p: "Relay Race", s2_r4_c: "6 teams of 5, head-to-head matches → finals & awards", s2_r4_d: "~45 min",
+    hist_eyebrow: "OUR HERITAGE",
+    hist_title: "Let's Learn 5 Korean Traditional Games!",
+    hist_intro: "These are Korean traditional games you can enjoy without any special tools. Through them, you'll feel teamwork and fun!",
+    hist_c1: "A game of tossing and catching 5 small stones",
+    hist_c2: "A game of slapping a paper tile to flip it over",
+    hist_c3: "A game of spinning a top to keep it going",
+    hist_c4: "A game of tossing a stone and hopping the squares",
+    hist_c5: "A game of kicking a jegi up with your foot",
+    materials_label: "Materials", howto_label: "How to Play", tip_label: "TIP", video_hint: "Add a YouTube link", video_open: "▶ Open on YouTube",
+    s_game_eyebrow1: "GAME 1 / 5", s_game_eyebrow2: "GAME 2 / 5", s_game_eyebrow3: "GAME 3 / 5",
+    s_game_eyebrow4: "GAME 4 / 5", s_game_eyebrow5: "GAME 5 / 5",
+    g1_ko: "Gonggi", g1_en: "Gonggi (Five Stones)", g1_vi: "Trò chơi 5 viên đá (Gonggi)",
+    g1_materials: "5 gonggi stones",
+    g1_step1: "Scatter the 5 stones on the ground",
+    g1_step2: "Toss one stone up, pick up one from the ground, then catch the falling stone",
+    g1_step3: "Repeat until all stones on the ground are picked up",
+    g1_step4: "Finally, toss all 5 stones up and catch them on the back of your hand",
+    g1_tip: "Beginners should start by practicing tossing and catching with just 1 stone",
+    g2_ko: "Ddakji", g2_en: "Ddakji (Paper Flipping)", g2_vi: "Trò chơi lật giấy (Ddakji)",
+    g2_materials: "2 or more paper ddakji tiles (1 per person)",
+    g2_step1: "Place your opponent's ddakji on the ground",
+    g2_step2: "Slam your own ddakji down hard to create a gust of wind",
+    g2_step3: "If the opponent's ddakji flips over, you win!",
+    g2_step4: "If it doesn't flip, switch attacker and defender roles",
+    g2_tip: "Use a wrist snap rather than your whole arm for a better flip",
+    g3_ko: "Paengi-dolligi", g3_en: "Paengi (Spinning Top)", g3_vi: "Quay con quay (Paengi)",
+    g3_materials: "Wooden top and a spinning string/whip",
+    g3_step1: "Wind the string around the top",
+    g3_step2: "Pull the string to spin the top onto the ground",
+    g3_step3: "Whip the side of the top with the string to keep it spinning",
+    g3_step4: "The person whose top spins the longest wins",
+    g3_tip: "Snap your wrist while pulling the string for a stronger spin",
+    g4_ko: "Sabangchigi", g4_en: "Sabangchigi (Korean Hopscotch)", g4_vi: "Trò chơi ô ăn quan nhảy lò cò (Sabangchigi)",
+    g4_materials: "An 8-square grid drawn on the ground and a small flat stone",
+    g4_step1: "Toss the stone into any numbered square",
+    g4_step2: "Avoiding the square with the stone, hop in number order on one or two feet to the end and back",
+    g4_step3: "Pick up the stone on the way back",
+    g4_tip: "Stepping on a line or losing your balance passes the turn to the next player",
+    g5_ko: "Jegichagi", g5_en: "Jegichagi (Shuttlecock Kicking)", g5_vi: "Đá cầu lông vũ Hàn Quốc (Jegichagi)",
+    g5_materials: "A jegi (a coin wrapped in paper or cloth strips)",
+    g5_step1: "Gently toss the jegi up with your hand",
+    g5_step2: "Kick it up using the inside/side of your foot",
+    g5_step3: "Keep kicking without letting it touch the ground",
+    g5_step4: "Whoever kicks it the most times wins",
+    g5_tip: "Beginners can practice against a wall or together with a partner",
+    s8_eyebrow: "ACTIVITY 1",
+    s8_title: "Activity 1: Station Rotation",
+    s8_desc: "Divide 30 students into 5 teams of 6, rotating through all 5 game stations to try every game.",
+    s8_people: "6 people",
+    s8_note: "About 5 minutes per station, then move to the next on signal (rotate through all 5 stations)",
+    s9_eyebrow: "ACTIVITY 2",
+    s9_title: "Relay Race",
+    s9_desc: "Considering skill level, regroup into 6 teams of 5 and run a head-to-head relay race between pairs of teams.",
+    s9_rule1: "Each of the 5 team members is responsible for one game, in order",
+    s9_rule2: "After finishing a game, pass a signal (e.g., a high-five) to the next player",
+    s9_rule3: "Two teams compete at once; the first team to complete all 5 games wins",
+    s10_eyebrow: "SAFETY & TIPS",
+    s10_title: "Safety Rules & Facilitation Tips",
+    s10_r1: "Wear non-slip shoes and comfortable clothing",
+    s10_r2: "Keep safe distance when handling tools like the top's whip and ddakji",
+    s10_r3: "Assign a volunteer facilitator to each team to manage safety",
+    s10_r4: "Fun comes before competition! Create an atmosphere of cheering each other on",
+    s11_title: "Thank You!",
+    s11_body: "Thank you for joining us today.<br>Keep enjoying these traditional Korean games with your friends!"
+  },
+  vi: {
+    brandName: "Lớp Học Trò Chơi Dân Gian Hàn Quốc",
+    s0_title: "Trải Nghiệm Trò Chơi Dân Gian Hàn Quốc",
+    s0_sub: "Đại học Quốc gia Jeju &times; Đại học Đông Á",
+    s0_meta: "Đối tượng: 30 sinh viên đại học &nbsp;·&nbsp; Thời gian: tổng khoảng 2 giờ &nbsp;·&nbsp; Trò chơi: Gonggi · Ddakji · Paengi · Sabangchigi · Jegichagi",
+    s1_eyebrow: "TỔNG QUAN BUỔI HỌC",
+    s1_title: "Mục Tiêu Hôm Nay",
+    s1_subtitle: "Vừa chơi vừa học, cảm nhận văn hóa Hàn Quốc bằng cả cơ thể luôn nha!",
+    s1_g1: "Biết tên và cách chơi của 5 trò chơi dân gian Hàn Quốc",
+    s1_g2: "Tự tay chơi thử để thấy gần gũi hơn với văn hóa Hàn Quốc",
+    s1_g3: "Cảm nhận tinh thần đồng đội và niềm vui thi đua qua hoạt động nhóm và thi tiếp sức",
+    period1_label: "Tiết 1", period2_label: "Tiết 2", act_label: "Hoạt động",
+    period1_act: "Giới thiệu & làm mẫu → chơi thử theo trạm",
+    period2_act: "Thi tiếp sức → trao giải",
+    g4_warn: "Đừng giẫm lên vạch hay bước ra ngoài vạch nghe!",
+    g5_warn: "Jegi mà rơi xuống đất là bị chuyển lượt đó nha!",
+    exp_title: "Cùng Chơi Thử Nào!",
+    exp_caption: "Trong thời gian cho phép, mình chơi thử lần lượt hết các trò nha!",
+    unit_min: "phút", unit_sec: "giây",
+    btn_set: "Đặt giờ", btn_start: "Bắt đầu", btn_pause: "Tạm dừng", btn_reset: "Đặt lại",
+    cond_gonggi: "Qua được cấp 1 là đậu",
+    cond_ddakji: "Lật được ddakji là đậu",
+    cond_paengi: "Con quay quay hơn 10 giây là đậu",
+    cond_sabang: "Đi và về không mắc lỗi là đậu",
+    cond_jegi: "Đá liên tục từ 3 lần trở lên là đậu",
+    relay_rule1: "5 bạn trong đội, mỗi bạn phụ trách một trò.",
+    relay_rule2: "Phải qua được trò ở bước trước thì mới được sang bước tiếp theo.",
+    relay_rule3: "Mỗi đội có một lần dùng \"hiệp sĩ áo đen\". Giơ tay hô \"Chance!\" là dùng được nha. Chỉ bạn nào không phụ trách trò nào mới được làm hiệp sĩ áo đen. (Không dùng cũng không sao nha!)",
+    relay_rule4: "Hai đội thi cùng lúc, mình sẽ bấm giờ hoàn thành của từng đội.",
+    relay_rule5: "Đội nào xong nhanh nhất là thắng đó!",
+    meet_eyebrow: "THỜI GIAN NHÓM", meet_title: "Thời Gian Họp Nhóm",
+    meet_caption: "Cùng bàn xem ai chơi trò nào với chiến thuật của đội (hiệp sĩ áo đen) nha!",
+    award_title: "Vô Địch", award_lbl: "Winner",
+    award_sub: "Xin chúc mừng!",
+    notice_eyebrow: "THÔNG BÁO", notice_title: "Thông Báo Buổi Học Ngày Mai",
+    notice_food: "Món ăn Hàn Quốc — làm Tteokbokki &amp; Hwachae",
+    notice_body: "Phần trái cây cho món hwachae thì chỉ có sẵn <span class=\"accent\">dưa hấu</span> thôi nha. Các bạn mang thêm trái cây khác hay thạch thì làm hwachae ngon hơn nhiều đó!",
+    host_label: "Người dẫn",
+    cover_eyebrow: "Lớp Trải Nghiệm Trò Chơi",
+    cover_sub: "Cùng học và chơi 5 trò chơi dân gian Hàn Quốc nha!",
+    cover_sub2: "Lớp trải nghiệm trò chơi dân gian Hàn Quốc",
+    cover_tag1: "Trò chơi dân gian", cover_tag3: "Trải nghiệm văn hóa",
+    hero_title: "5 Trò Chơi Dân Gian",
+    warm_eyebrow: "KHỞI ĐỘNG", warm_title: "Khởi động: Mugunghwa (Đèn đỏ đèn xanh)",
+    warm_p1: "Câu <b>'Một, hai, ba'</b> của Việt Nam mình giống y chang câu <b>'Mugunghwa kkoci pieotseumnida'</b> của Hàn Quốc đó!",
+    warm_p2: "Bữa nay mình chơi bằng khẩu hiệu tiếng Hàn 'Mugunghwa kkoci pieotseumnida' nha!",
+    break_eyebrow: "GIỜ NGHỈ", break_title: "Giờ Nghỉ",
+    break_caption: "10 phút nữa mình gặp lại nha!",
+    s2_eyebrow: "TRÌNH TỰ",
+    s2_title: "Trình Tự Buổi Học",
+    s2_subtitle: "Tiết học 45 phút, nghỉ 15 phút · điều chỉnh thời gian tại chỗ",
+    s2_h1: "Hoạt động", s2_h2: "Nội dung", s2_h3: "Thời gian dự kiến",
+    s2_r1_p: "Mở đầu · An toàn · Giới thiệu", s2_r1_c: "Giới thiệu mục tiêu & quy tắc an toàn + luật và cách chơi 5 trò", s2_r1_d: "~15 phút",
+    s2_r2_p: "Luân phiên theo trạm", s2_r2_c: "5 đội (6 người), luân phiên qua cả 5 trạm trò chơi", s2_r2_d: "~30 phút",
+    s2_r3_p: "Nghỉ giải lao", s2_r3_c: "Nghỉ ngắn", s2_r3_d: "15 phút",
+    s2_r4_p: "Thi tiếp sức", s2_r4_c: "6 đội (5 người), đối kháng theo cặp → chung kết & trao giải", s2_r4_d: "~45 phút",
+    hist_eyebrow: "TRÒ CHƠI TRUYỀN THỐNG",
+    hist_title: "Cùng Học 5 Trò Chơi Dân Gian Hàn Quốc!",
+    hist_intro: "Đây là mấy trò chơi dân gian Hàn Quốc, không cần dụng cụ gì đặc biệt cũng chơi được. Chơi mấy trò này là thấy vui và gắn kết với nhau liền!",
+    hist_c1: "Trò tung rồi bắt 5 viên đá nhỏ",
+    hist_c2: "Trò đập tấm giấy cho nó lật lại",
+    hist_c3: "Trò quay con quay sao cho quay thật lâu",
+    hist_c4: "Trò ném viên đá rồi nhảy qua các ô",
+    hist_c5: "Trò đá jegi lên bằng chân",
+    materials_label: "Cần chuẩn bị", howto_label: "Cách Chơi", tip_label: "MẸO", video_hint: "Thêm liên kết YouTube", video_open: "▶ Mở trên YouTube",
+    s_game_eyebrow1: "TRÒ CHƠI 1 / 5", s_game_eyebrow2: "TRÒ CHƠI 2 / 5", s_game_eyebrow3: "TRÒ CHƠI 3 / 5",
+    s_game_eyebrow4: "TRÒ CHƠI 4 / 5", s_game_eyebrow5: "TRÒ CHƠI 5 / 5",
+    g1_ko: "Gonggi", g1_en: "Gonggi (Five Stones)", g1_vi: "Trò Chơi 5 Viên Đá (Gonggi)",
+    g1_materials: "5 viên đá gonggi",
+    g1_step1: "Rải 5 viên đá ra đất",
+    g1_step2: "Tung một viên lên, nhặt nhanh một viên dưới đất rồi bắt viên đang rơi",
+    g1_step3: "Cứ vậy lặp lại cho tới khi nhặt hết đá dưới đất",
+    g1_step4: "Cuối cùng tung cả 5 viên lên rồi hứng bằng mu bàn tay",
+    g1_tip: "Người mới nên tập tung và bắt với 1 viên đá trước",
+    g2_ko: "Ddakji", g2_en: "Ddakji (Paper Flipping)", g2_vi: "Trò Chơi Lật Giấy (Ddakji)",
+    g2_materials: "Từ 2 tấm ddakji giấy trở lên (mỗi bạn 1 tấm)",
+    g2_step1: "Đặt tấm ddakji của đối thủ xuống đất",
+    g2_step2: "Lấy ddakji của mình đập mạnh xuống cho tạo gió",
+    g2_step3: "Ddakji của đối thủ mà lật lại là mình thắng!",
+    g2_step4: "Nếu chưa lật thì đổi phiên tấn công với phòng thủ",
+    g2_tip: "Dùng lực bật cổ tay thay vì cả cánh tay sẽ dễ lật hơn",
+    g3_ko: "Paengi-dolligi", g3_en: "Paengi (Spinning Top)", g3_vi: "Quay Con Quay (Paengi)",
+    g3_materials: "Con quay gỗ và dây quay",
+    g3_step1: "Quấn dây quanh con quay",
+    g3_step2: "Kéo dây cho con quay xoay xuống đất",
+    g3_step3: "Dùng dây quất vào cạnh con quay cho nó quay tiếp",
+    g3_step4: "Con quay của ai quay lâu nhất là người đó thắng",
+    g3_tip: "Giật cổ tay khi kéo dây để con quay quay mạnh hơn",
+    g4_ko: "Sabangchigi", g4_en: "Sabangchigi (Korean Hopscotch)", g4_vi: "Trò Chơi Nhảy Lò Cò Hàn Quốc (Sabangchigi)",
+    g4_materials: "Ô 8 ô vẽ dưới đất và một viên đá dẹt nhỏ",
+    g4_step1: "Ném viên đá vào một ô số bất kỳ",
+    g4_step2: "Né ô có viên đá, nhảy theo thứ tự số bằng một hoặc hai chân, tới cuối rồi quay lại",
+    g4_step3: "Lúc quay lại thì nhặt viên đá lên",
+    g4_tip: "Giẫm vạch hoặc mất thăng bằng sẽ bị mất lượt cho người tiếp theo",
+    g5_ko: "Jegichagi", g5_en: "Jegichagi (Shuttlecock Kicking)", g5_vi: "Đá Cầu Lông Vũ Hàn Quốc (Jegichagi)",
+    g5_materials: "Jegi (đồng xu bọc trong giấy hoặc vải)",
+    g5_step1: "Tung nhẹ jegi lên bằng tay",
+    g5_step2: "Đá jegi lên bằng cạnh trong bàn chân",
+    g5_step3: "Đá liên tục, đừng để jegi rơi xuống đất",
+    g5_step4: "Ai đá được nhiều lần nhất là thắng",
+    g5_tip: "Người mới nên tập với tường hoặc cùng một người bạn",
+    s8_eyebrow: "HOẠT ĐỘNG 1",
+    s8_title: "Hoạt Động 1: Luân Phiên Theo Trạm",
+    s8_desc: "Chia 30 sinh viên thành 5 đội (6 người/đội), lần lượt di chuyển qua cả 5 trạm để trải nghiệm mọi trò chơi.",
+    s8_people: "6 người",
+    s8_note: "Mỗi trạm khoảng 5 phút → di chuyển sang trạm tiếp theo khi có hiệu lệnh (luân phiên qua cả 5 trạm)",
+    s9_eyebrow: "HOẠT ĐỘNG 2",
+    s9_title: "Chạy tiếp sức",
+    s9_desc: "Xét theo trình độ, chia lại thành 6 đội (5 người/đội) và thi tiếp sức đối kháng theo từng cặp đội.",
+    s9_rule1: "Mỗi thành viên trong 5 người phụ trách một trò chơi theo đúng thứ tự",
+    s9_rule2: "Sau khi hoàn thành một trò chơi, truyền hiệu lệnh (ví dụ: đập tay) cho người tiếp theo",
+    s9_rule3: "Hai đội thi đấu cùng lúc; đội hoàn thành cả 5 trò chơi trước sẽ thắng",
+    s10_eyebrow: "AN TOÀN & MẸO",
+    s10_title: "Quy Tắc An Toàn & Mẹo Tổ Chức",
+    s10_r1: "Mang giày chống trượt và trang phục thoải mái",
+    s10_r2: "Giữ khoảng cách an toàn khi sử dụng dây quay con quay, ddakji, v.v.",
+    s10_r3: "Bố trí một tình nguyện viên phụ trách an toàn cho mỗi đội",
+    s10_r4: "Niềm vui quan trọng hơn thắng thua! Hãy tạo không khí cổ vũ lẫn nhau",
+    s11_title: "Cảm Ơn!",
+    s11_body: "Cảm ơn các bạn đã tham gia cùng chúng tôi hôm nay.<br>Hãy tiếp tục chơi những trò chơi dân gian Hàn Quốc này cùng bạn bè nhé!"
+  }
+};
+
+let currentLang = "ko";
+let currentSlide = 0;
+let hasNavigated = false;
+const slides = document.querySelectorAll(".slide");
+const total = slides.length;
+document.getElementById("totalNum").textContent = total;
+
+/* build progress-nav dots + jegi token */
+const pnTrack = document.getElementById("pnTrack");
+const pnToken = document.getElementById("pnToken");
+for(let i=0;i<total;i++){
+  const d = document.createElement("button");
+  d.type = "button";
+  d.className = "pn-dot";
+  d.setAttribute("aria-label", `${i+1}번 페이지로 이동`);
+  d.title = `${i+1}번 페이지로 이동`;
+  d.addEventListener("click", ()=>goToSlide(i));
+  pnTrack.appendChild(d);
+}
+const pnDots = pnTrack.querySelectorAll(".pn-dot");
+function updateProgressNav(idx, shouldSpin = true){
+  pnDots.forEach((d,i)=>{
+    d.classList.toggle("done", i < idx);
+    d.setAttribute("aria-current", i === idx ? "page" : "false");
+  });
+  const cur = pnDots[idx];
+  if(cur){
+    pnToken.style.left = (cur.offsetLeft + cur.offsetWidth/2) + "px";
+    pnToken.classList.remove("is-moving");
+    if(shouldSpin){
+      void pnToken.offsetWidth;
+      pnToken.classList.add("is-moving");
+    }
+  }
+}
+
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  const dict = translations[lang];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(dict[key] !== undefined){
+      el.innerHTML = dict[key];
+    }
+  });
+  document.querySelectorAll(".lang-switch button").forEach(btn=>{
+    btn.classList.toggle("active", btn.getAttribute("data-lang")===lang);
+  });
+}
+
+function goToSlide(idx){
+  if(idx < 0 || idx >= total) return;
+  if(hasNavigated && idx === currentSlide) return;
+  slides[currentSlide].classList.remove("active");
+  currentSlide = idx;
+  slides[currentSlide].classList.add("active");
+  document.getElementById("curNum").textContent = currentSlide+1;
+  document.getElementById("progressFill").style.width = ((currentSlide+1)/total*100)+"%";
+  document.getElementById("prevBtn").disabled = currentSlide===0;
+  document.getElementById("nextBtn").disabled = currentSlide===total-1;
+  updateProgressNav(currentSlide, hasNavigated);
+  hasNavigated = true;
+}
+
+document.getElementById("prevBtn").addEventListener("click", ()=>goToSlide(currentSlide-1));
+document.getElementById("nextBtn").addEventListener("click", ()=>goToSlide(currentSlide+1));
+document.querySelectorAll(".lang-switch button").forEach(btn=>{
+  btn.addEventListener("click", ()=>applyLang(btn.getAttribute("data-lang")));
+});
+document.addEventListener("keydown", (e)=>{
+  const t = e.target;
+  if(t && (t.tagName==="INPUT" || t.tagName==="TEXTAREA" || t.isContentEditable)) return;
+  if(e.key==="ArrowRight" || e.key===" ") goToSlide(currentSlide+1);
+  if(e.key==="ArrowLeft") goToSlide(currentSlide-1);
+});
+
+/* Click the left/right edge of the slide to move prev/next */
+(function(){
+  const st = document.getElementById("stage");
+  st.addEventListener("click", (e)=>{
+    if(e.target.closest("button, a, input, textarea, .lang-switch, .timer-wrap, .game-media, video")) return;
+    const rect = st.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    if(x < 0.15) goToSlide(currentSlide-1);
+    else if(x > 0.85) goToSlide(currentSlide+1);
+  });
+})();
+
+/* ===== COUNTDOWN TIMERS ===== */
+function initTimers(){
+  document.querySelectorAll("[data-timer]").forEach(wrap=>{
+    const disp   = wrap.querySelector(".timer-display");
+    const minIn  = wrap.querySelector(".timer-min");
+    const secIn  = wrap.querySelector(".timer-sec");
+    let remaining = 0;      // seconds left
+    let ticker = null;
+    function render(){
+      const m = Math.floor(remaining/60), s = remaining%60;
+      disp.textContent = String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+      wrap.classList.toggle("done", remaining===0);
+    }
+    function readInputs(){
+      const m = Math.max(0, parseInt(minIn.value||"0",10) || 0);
+      const s = Math.max(0, Math.min(59, parseInt(secIn.value||"0",10) || 0));
+      remaining = m*60 + s;
+    }
+    function stop(){ if(ticker){ clearInterval(ticker); ticker=null; } }
+    function apply(){ stop(); wrap.classList.remove("ring"); readInputs(); render(); }
+    function start(){
+      if(ticker) return;
+      if(remaining<=0){ readInputs(); }
+      if(remaining<=0) return;
+      wrap.classList.remove("ring");
+      ticker = setInterval(()=>{
+        remaining--;
+        render();
+        if(remaining<=0){ stop(); wrap.classList.add("ring"); }
+      }, 1000);
+    }
+    wrap.querySelector(".timer-btn.set")  ?.addEventListener("click", apply);
+    wrap.querySelector(".timer-btn.start")?.addEventListener("click", start);
+    wrap.querySelector(".timer-btn.pause")?.addEventListener("click", stop);
+    wrap.querySelector(".timer-btn.reset")?.addEventListener("click", apply);
+    apply();
+  });
+}
+
+applyLang("ko");
+loadVideos();
+initTimers();
+goToSlide(0);
+
+const stageEl = document.getElementById("stage");
+function fitStage(){
+  const scale = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+  stageEl.style.transform = `scale(${scale})`;
+}
+window.addEventListener("resize", fitStage);
+fitStage();
+</script>
+
+</body>
+</html>

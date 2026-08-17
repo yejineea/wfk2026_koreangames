@@ -959,10 +959,10 @@
     <div class="slide-inner">
       <span class="eyebrow" data-i18n="s8_eyebrow">ACTIVITY 1</span>
       <h1 class="slide-title" data-i18n="exp_title">체험해보아요!</h1>
-      <div class="timer-wrap" data-timer data-min="0" data-sec="0">
-        <div class="timer-display">00:00</div>
+      <div class="timer-wrap" data-timer data-min="20" data-sec="0">
+        <div class="timer-display">20:00</div>
         <div class="timer-inputs">
-          <input type="number" class="timer-min" min="0" max="180" value="0"><span data-i18n="unit_min">분</span>
+          <input type="number" class="timer-min" min="0" max="180" value="20"><span data-i18n="unit_min">분</span>
           <input type="number" class="timer-sec" min="0" max="59" value="0"><span data-i18n="unit_sec">초</span>
           <button class="timer-btn set" data-i18n="btn_set">설정</button>
         </div>
@@ -1092,8 +1092,9 @@
       <h1 class="slide-title" data-i18n="notice_title">내일 수업 공지</h1>
       <div class="notice-box">
         <span class="hi" data-i18n="notice_food">한국 음식 — 떡볶이, 화채 만들기</span><br>
-        <span data-i18n="notice_body">내일 화채 토핑으로 수박, 망고, 바나나, 시리얼이 준비될 예정입니다. 더 추가하고 싶은 토핑이 있다면 들고 와주세요!</span>
+        <span data-i18n="notice_body">내일 화채 토핑으로 <span class="accent">수박, 망고, 바나나, 시리얼</span>이 준비될 예정입니다. 더 추가하고 싶은 토핑이 있다면 가져와도 돼요!<span class="optional">(선택사항)</span></span>
       </div>
+      <div class="thanks"><span class="t-big" data-i18n="notice_thanks">여러분, 감사합니다!</span></div>
     </div>
   </section>
 
@@ -1192,7 +1193,8 @@ const translations = {
     award_sub: "축하합니다!",
     notice_eyebrow: "공지", notice_title: "내일 수업 공지",
     notice_food: "한국 음식 — 떡볶이, 화채 만들기",
-    notice_body: "내일 화채 토핑으로 수박, 망고, 바나나, 시리얼이 준비될 예정입니다. 더 추가하고 싶은 토핑이 있다면 들고 와주세요!",
+    notice_body: "내일 화채 토핑으로 <span class=\"accent\">수박, 망고, 바나나, 시리얼</span>이 준비될 예정입니다. 더 추가하고 싶은 토핑이 있다면 가져와도 돼요!<span class=\"optional\">(선택사항)</span>",
+    notice_thanks: "여러분, 감사합니다!",
     host_label: "진행자",
     cover_eyebrow: "전통놀이 체험 수업",
     cover_sub: "다섯 가지 한국 전통놀이를 함께 배우고 즐겨보아요!",
@@ -1313,7 +1315,8 @@ const translations = {
     award_sub: "Congratulations!",
     notice_eyebrow: "NOTICE", notice_title: "Tomorrow's Class Notice",
     notice_food: "Korean food — making Tteokbokki &amp; Hwachae",
-    notice_body: "Tomorrow, we'll have watermelon, mango, banana, and cereal ready as hwachae toppings. If there's another topping you'd like to add, please bring it along!",
+    notice_body: "Tomorrow, <span class=\"accent\">watermelon, mango, banana, and cereal</span> will be ready as hwachae toppings. If there's another topping you'd like to add, you may bring it!<span class=\"optional\"> (Optional)</span>",
+    notice_thanks: "Thank you, everyone!",
     host_label: "Hosts",
     cover_eyebrow: "Traditional Games Class",
     cover_sub: "Let's learn and enjoy 5 Korean traditional games together!",
@@ -1405,7 +1408,7 @@ const translations = {
     s0_meta: "Đối tượng: 30 sinh viên đại học &nbsp;·&nbsp; Thời gian: tổng khoảng 2 giờ &nbsp;·&nbsp; Trò chơi: Gonggi · Ddakji · Paengi · Sabangchigi · Jegichagi",
     s1_eyebrow: "TỔNG QUAN BUỔI HỌC",
     s1_title: "Mục Tiêu Hôm Nay",
-    s1_subtitle: "Vừa chơi vừa học, cảm nhận văn hóa Hàn Quốc bằng cả cơ thể luôn nha!",
+    s1_subtitle: "Vừa học vừa chơi, cùng cảm nhận văn hóa Hàn Quốc một cách sinh động nhé!",
     s1_g1: "Biết tên và cách chơi của 5 trò chơi dân gian Hàn Quốc",
     s1_g2: "Tự tay chơi thử để thấy gần gũi hơn với văn hóa Hàn Quốc",
     s1_g3: "Cảm nhận tinh thần đồng đội và niềm vui thi đua qua hoạt động nhóm và thi tiếp sức",
@@ -1413,9 +1416,9 @@ const translations = {
     period1_act: "Giới thiệu & làm mẫu → chơi thử theo trạm",
     period2_act: "Thi tiếp sức → trao giải",
     g4_warn: "Đừng giẫm lên vạch hay bước ra ngoài vạch nghe!",
-    g5_warn: "Jegi mà rơi xuống đất là bị chuyển lượt đó nha!",
+    g5_warn: "Nếu jegi rơi xuống đất thì lượt chơi sẽ chuyển sang người tiếp theo nhé!",
     exp_title: "Cùng Chơi Thử Nào!",
-    exp_caption: "Trong thời gian cho phép, mình chơi thử lần lượt hết các trò nha!",
+    exp_caption: "Trong thời gian cho phép, hãy lần lượt thử tất cả các trò chơi nhé!",
     unit_min: "phút", unit_sec: "giây",
     btn_set: "Đặt giờ", btn_start: "Bắt đầu", btn_pause: "Tạm dừng", btn_reset: "Đặt lại",
     cond_gonggi: "Qua được cấp 1 là đậu",
@@ -1426,26 +1429,27 @@ const translations = {
     relay_rule1: "5 bạn trong đội, mỗi bạn phụ trách một trò.",
     relay_rule2: "Phải qua được trò ở bước trước thì mới được sang bước tiếp theo.",
     relay_rule3: "Mỗi đội chỉ được dùng \"cơ hội thay người\" một lần. Khi cần một thành viên khác hỗ trợ, hãy giơ tay và hô \"Chance!\". Một thành viên không phụ trách môn nào khác có thể thay bạn thực hiện. Không bắt buộc phải dùng cơ hội này.",
-    relay_rule4: "Hai đội thi cùng lúc, mình sẽ bấm giờ hoàn thành của từng đội.",
-    relay_rule5: "Đội nào xong nhanh nhất là thắng đó!",
+    relay_rule4: "Hai đội thi đấu cùng lúc; ban tổ chức sẽ ghi thời gian hoàn thành của từng đội.",
+    relay_rule5: "Đội hoàn thành nhanh nhất sẽ chiến thắng!",
     meet_eyebrow: "THỜI GIAN NHÓM", meet_title: "Thời Gian Họp Nhóm",
     meet_caption: "Hãy cùng bàn bạc về phần thi mỗi người sẽ phụ trách và chiến thuật của đội (cơ hội thay người) nhé!",
     award_title: "Vô Địch", award_lbl: "Winner",
     award_sub: "Xin chúc mừng!",
     notice_eyebrow: "THÔNG BÁO", notice_title: "Thông Báo Buổi Học Ngày Mai",
     notice_food: "Món ăn Hàn Quốc — làm Tteokbokki &amp; Hwachae",
-    notice_body: "Ngày mai, lớp mình sẽ chuẩn bị topping cho hwachae gồm dưa hấu, xoài, chuối và ngũ cốc nha. Nếu muốn thêm loại topping nào thì các bạn cứ mang đến nhé!",
+    notice_body: "Ngày mai, lớp sẽ chuẩn bị các loại topping cho hwachae gồm <span class=\"accent\">dưa hấu, xoài, chuối và ngũ cốc</span>. Nếu các bạn muốn thêm loại topping khác, có thể mang đến nhé!<span class=\"optional\"> (Tùy chọn)</span>",
+    notice_thanks: "Cảm ơn các bạn!",
     host_label: "Người dẫn",
     cover_eyebrow: "Lớp Trải Nghiệm Trò Chơi",
-    cover_sub: "Cùng học và chơi 5 trò chơi dân gian Hàn Quốc nha!",
+    cover_sub: "Cùng học và trải nghiệm 5 trò chơi dân gian Hàn Quốc!",
     cover_sub2: "Lớp trải nghiệm trò chơi dân gian Hàn Quốc",
     cover_tag1: "Trò chơi dân gian", cover_tag3: "Trải nghiệm văn hóa",
     hero_title: "5 Trò Chơi Dân Gian",
     warm_eyebrow: "KHỞI ĐỘNG", warm_title: "Khởi động: Mugunghwa (Đèn đỏ đèn xanh)",
-    warm_p1: "Câu <b>'Một, hai, ba'</b> của Việt Nam mình giống y chang câu <b>'Mugunghwa kkoci pieotseumnida'</b> của Hàn Quốc đó!",
-    warm_p2: "Bữa nay mình chơi bằng khẩu hiệu tiếng Hàn 'Mugunghwa kkoci pieotseumnida' nha!",
+    warm_p1: "Trò chơi <b>'Một, hai, ba'</b> của Việt Nam tương tự trò <b>'Mugunghwa kkoci pieotseumnida'</b> của Hàn Quốc.",
+    warm_p2: "Hôm nay, chúng ta cùng chơi với khẩu hiệu tiếng Hàn 'Mugunghwa kkoci pieotseumnida' nhé!",
     break_eyebrow: "GIỜ NGHỈ", break_title: "Giờ Nghỉ",
-    break_caption: "10 phút nữa mình gặp lại nha!",
+    break_caption: "Nghỉ 10 phút, rồi gặp lại nhé!",
     s2_eyebrow: "TRÌNH TỰ",
     s2_title: "Trình Tự Buổi Học",
     s2_subtitle: "Tiết học 45 phút, nghỉ 15 phút · điều chỉnh thời gian tại chỗ",
@@ -1456,7 +1460,7 @@ const translations = {
     s2_r4_p: "Thi tiếp sức", s2_r4_c: "6 đội (5 người), đối kháng theo cặp → chung kết & trao giải", s2_r4_d: "~45 phút",
     hist_eyebrow: "TRÒ CHƠI TRUYỀN THỐNG",
     hist_title: "Cùng Học 5 Trò Chơi Dân Gian Hàn Quốc!",
-    hist_intro: "Đây là mấy trò chơi dân gian Hàn Quốc, không cần dụng cụ gì đặc biệt cũng chơi được. Chơi mấy trò này là thấy vui và gắn kết với nhau liền!",
+    hist_intro: "Đây là những trò chơi dân gian Hàn Quốc có thể chơi mà không cần dụng cụ đặc biệt. Qua các trò chơi này, chúng ta có thể cảm nhận niềm vui và tinh thần gắn kết.",
     hist_c1: "Trò tung rồi bắt 5 viên đá nhỏ",
     hist_c2: "Trò đập tấm giấy cho nó lật lại",
     hist_c3: "Trò quay con quay sao cho quay thật lâu",
@@ -1475,8 +1479,8 @@ const translations = {
     g2_ko: "Ddakji", g2_en: "Ddakji (Paper Flipping)", g2_vi: "Trò Chơi Lật Giấy (Ddakji)",
     g2_materials: "Từ 2 tấm ddakji giấy trở lên (mỗi bạn 1 tấm)",
     g2_step1: "Đặt tấm ddakji của đối thủ xuống đất",
-    g2_step2: "Lấy ddakji của mình đập mạnh xuống cho tạo gió",
-    g2_step3: "Ddakji của đối thủ mà lật lại là mình thắng!",
+    g2_step2: "Dùng ddakji của mình đập mạnh xuống để tạo luồng gió",
+    g2_step3: "Nếu ddakji của đối thủ lật lại, bạn sẽ thắng!",
     g2_step4: "Nếu chưa lật thì đổi phiên tấn công với phòng thủ",
     g2_tip: "Dùng lực bật cổ tay thay vì cả cánh tay sẽ dễ lật hơn",
     g3_ko: "Paengi-dolligi", g3_en: "Paengi (Spinning Top)", g3_vi: "Quay Con Quay (Paengi)",

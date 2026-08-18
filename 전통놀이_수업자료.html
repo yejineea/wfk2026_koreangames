@@ -493,6 +493,41 @@
   .mflow-item .mb-name{font-size:36px;font-weight:800;color:var(--navy);line-height:1.15;}
   .mflow-item .mb-cond{font-size:25px;font-weight:600;color:#333;line-height:1.4;}
   .mflow-arrow{align-self:center;color:var(--gold);font-size:46px;font-weight:800;flex:0 0 auto;}
+  /* TOURNAMENT BRACKET */
+  .bracket{display:flex;align-items:stretch;justify-content:center;gap:22px;}
+  .brk-side{display:flex;flex-direction:column;flex:0 0 auto;}
+  .brk-round{
+    height:46px;line-height:44px;margin-bottom:20px;text-align:center;
+    font-size:23px;font-weight:800;letter-spacing:1.6px;color:var(--gold);
+    background:color-mix(in srgb, var(--gold) 10%, white);
+    border:1px solid color-mix(in srgb, var(--gold) 25%, white);border-radius:999px;
+  }
+  .brk-matches{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:36px;}
+  .brk-match{
+    height:180px;width:360px;padding:0 24px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    background:#fff;border:1px solid var(--line);border-radius:22px;
+  }
+  .brk-team{
+    width:100%;height:58px;display:flex;align-items:center;justify-content:center;
+    font-size:30px;font-weight:800;color:var(--navy);
+    background:var(--cream);border-radius:14px;
+  }
+  .brk-vs{font-size:19px;font-weight:800;color:var(--gold);letter-spacing:2px;}
+  .brk-match.brk-final{border:2px solid var(--gold);box-shadow:0 12px 34px rgba(201,162,75,0.18);}
+  .brk-final .brk-team{font-size:24px;color:var(--sub);background:#f3efe4;}
+  .brk-join{
+    flex:0 0 auto;width:58px;margin:156px 0 90px;position:relative;
+    border:3px solid var(--gold);border-left:0;border-radius:0 20px 20px 0;
+  }
+  .brk-join::after{
+    content:"";position:absolute;left:100%;top:50%;transform:translateY(-50%);
+    width:22px;height:3px;background:var(--gold);
+  }
+  .brk-arrow{align-self:center;margin-top:66px;color:var(--gold);font-size:46px;font-weight:800;flex:0 0 auto;}
+  .brk-champ{width:210px;height:180px;display:flex;align-items:center;justify-content:center;}
+  .brk-champ svg{width:150px;height:auto;}
+  .brk-note{margin-top:28px;font-size:24px;font-weight:600;color:#333;text-align:center;}
   /* AWARD */
   #slide-award{text-align:center;background:
     radial-gradient(circle at 50% 8%, rgba(201,162,75,0.22), transparent 45%),
@@ -1002,7 +1037,7 @@
   <section class="slide" id="slide-relay">
     <div class="slide-inner">
       <span class="eyebrow" data-i18n="s9_eyebrow">ACTIVITY 2</span>
-      <h1 class="slide-title" data-i18n="s9_title">릴레이 경기</h1>
+      <h1 class="slide-title" data-i18n="s9_title">릴레이 토너먼트</h1>
       <div class="mission-list">
         <div class="m-card"><span class="m-name" data-i18n="g1_ko">공기놀이</span><span class="m-cond" data-i18n="cond_gonggi">3단계까지 한 번에 성공하면 통과</span></div>
         <span class="m-arrow">→</span>
@@ -1018,9 +1053,68 @@
         <li data-i18n="relay_rule1">팀원 5명이 각각 1종목씩 담당해요.</li>
         <li data-i18n="relay_rule2">앞 단계의 종목을 통과해야 다음 단계로 넘어갈 수 있어요.</li>
         <li data-i18n="relay_rule3">각 팀은 딱 한 번 ‘대신하기 찬스’를 사용할 수 있습니다. 다른 팀원의 도움이 필요한 경우, 손을 들고 “찬스!(Chance!)”라고 외쳐주세요. 다른 종목을 담당하지 않는 팀원이 대신 수행할 수 있습니다. 찬스는 사용하지 않아도 됩니다.</li>
-        <li data-i18n="relay_rule4">2팀씩 동시에 대결하며 팀마다 완료한 시간을 잴 거예요.</li>
-        <li data-i18n="relay_rule5">가장 빠른 시간 내에 완료한 팀이 우승이에요!</li>
+        <li data-i18n="relay_rule4">4팀이 토너먼트로 대결해요. 준결승 2경기(1팀 vs 2팀, 3팀 vs 4팀)에서 이긴 팀이 결승에 올라가요.</li>
+        <li data-i18n="relay_rule5">각 경기는 두 팀이 동시에 출발해서, 5종목을 먼저 모두 통과한 팀이 이겨요. 결승에서 이긴 팀이 우승이에요!</li>
       </ol>
+    </div>
+  </section>
+
+  <!-- SLIDE: TOURNAMENT BRACKET -->
+  <section class="slide" id="slide-bracket">
+    <div class="slide-inner">
+      <span class="eyebrow" data-i18n="brk_eyebrow">TOURNAMENT</span>
+      <h1 class="slide-title" data-i18n="brk_title">대진표</h1>
+      <div class="bracket">
+        <div class="brk-side">
+          <div class="brk-round" data-i18n="brk_semi">준결승</div>
+          <div class="brk-matches">
+            <div class="brk-match">
+              <span class="brk-team" data-i18n="brk_t1">1팀</span>
+              <span class="brk-vs">VS</span>
+              <span class="brk-team" data-i18n="brk_t2">2팀</span>
+            </div>
+            <div class="brk-match">
+              <span class="brk-team" data-i18n="brk_t3">3팀</span>
+              <span class="brk-vs">VS</span>
+              <span class="brk-team" data-i18n="brk_t4">4팀</span>
+            </div>
+          </div>
+        </div>
+        <div class="brk-join"></div>
+        <div class="brk-side">
+          <div class="brk-round" data-i18n="brk_final">결승</div>
+          <div class="brk-matches">
+            <div class="brk-match brk-final">
+              <span class="brk-team" data-i18n="brk_w1">준결승 1 승자</span>
+              <span class="brk-vs">VS</span>
+              <span class="brk-team" data-i18n="brk_w2">준결승 2 승자</span>
+            </div>
+          </div>
+        </div>
+        <span class="brk-arrow">→</span>
+        <div class="brk-side">
+          <div class="brk-round" data-i18n="brk_champ">우승</div>
+          <div class="brk-matches">
+            <div class="brk-champ">
+              <svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="우승 트로피">
+                <defs>
+                  <linearGradient id="goldg2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#e7d4a6"/><stop offset="0.5" stop-color="#c9a24b"/><stop offset="1" stop-color="#a9822f"/>
+                  </linearGradient>
+                </defs>
+                <path d="M52,42 C22,42 22,94 62,98" fill="none" stroke="url(#goldg2)" stroke-width="11" stroke-linecap="round"/>
+                <path d="M148,42 C178,42 178,94 138,98" fill="none" stroke="url(#goldg2)" stroke-width="11" stroke-linecap="round"/>
+                <path d="M50,32 H150 V60 C150,102 122,122 100,122 C78,122 50,102 50,60 Z" fill="url(#goldg2)"/>
+                <text x="100" y="94" text-anchor="middle" font-size="54" font-weight="800" fill="#fff" font-family="Pretendard, sans-serif">1</text>
+                <rect x="91" y="122" width="18" height="28" fill="url(#goldg2)"/>
+                <rect x="64" y="150" width="72" height="15" rx="4" fill="url(#goldg2)"/>
+                <rect x="50" y="165" width="100" height="20" rx="6" fill="url(#goldg2)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="brk-note" data-i18n="brk_note">각 경기는 두 팀이 동시에 출발해서, 5종목을 먼저 모두 통과한 팀이 이겨요.</div>
     </div>
   </section>
 
@@ -1185,8 +1279,17 @@ const translations = {
     relay_rule1: "팀원 5명이 각각 1종목씩 담당해요.",
     relay_rule2: "앞 단계의 종목을 통과해야 다음 단계로 넘어갈 수 있어요.",
     relay_rule3: "각 팀은 딱 한 번 ‘대신하기 찬스’를 사용할 수 있습니다. 다른 팀원의 도움이 필요한 경우, 손을 들고 “찬스!(Chance!)”라고 외쳐주세요. 다른 종목을 담당하지 않는 팀원이 대신 수행할 수 있습니다. 찬스는 사용하지 않아도 됩니다.",
-    relay_rule4: "2팀씩 동시에 대결하며 팀마다 완료한 시간을 잴 거예요.",
-    relay_rule5: "가장 빠른 시간 내에 완료한 팀이 우승이에요!",
+    relay_rule4: "4팀이 토너먼트로 대결해요. 준결승 2경기(1팀 vs 2팀, 3팀 vs 4팀)에서 이긴 팀이 결승에 올라가요.",
+    relay_rule5: "각 경기는 두 팀이 동시에 출발해서, 5종목을 먼저 모두 통과한 팀이 이겨요. 결승에서 이긴 팀이 우승이에요!",
+    brk_eyebrow: "TOURNAMENT",
+    brk_title: "대진표",
+    brk_semi: "준결승",
+    brk_final: "결승",
+    brk_champ: "우승",
+    brk_t1: "1팀", brk_t2: "2팀", brk_t3: "3팀", brk_t4: "4팀",
+    brk_w1: "준결승 1 승자",
+    brk_w2: "준결승 2 승자",
+    brk_note: "각 경기는 두 팀이 동시에 출발해서, 5종목을 먼저 모두 통과한 팀이 이겨요.",
     meet_eyebrow: "팀 회의", meet_title: "팀별 회의 시간",
     meet_caption: "각자 담당할 종목과 팀별 전략(대신하기 찬스) 등을 의논해보세요",
     award_title: "우승", award_lbl: "Winner",
@@ -1265,7 +1368,7 @@ const translations = {
     s8_people: "6인",
     s8_note: "스테이션당 약 5분씩 체험 → 신호에 맞춰 다음 스테이션으로 이동 (5개 스테이션 모두 순회)",
     s9_eyebrow: "ACTIVITY 2",
-    s9_title: "릴레이 경기",
+    s9_title: "릴레이 토너먼트",
     s9_desc: "학생 수준을 고려하여 5인 1팀 × 6팀으로 재편성하고, 2팀씩 대결하는 계주 경기를 진행합니다.",
     s9_rule1: "팀원 5명이 각각 1종목씩 순서대로 담당한다",
     s9_rule2: "한 종목을 완료하면 다음 선수에게 신호(하이파이브 등)를 전달한다",
@@ -1307,8 +1410,17 @@ const translations = {
     relay_rule1: "Each of the 5 members takes charge of one game.",
     relay_rule2: "You can move to the next stage only after clearing the previous one.",
     relay_rule3: "Each team may use one \"substitution chance\". If you need another teammate's help, raise your hand and shout \"Chance!\" A teammate who is not assigned to another game may take over. You don't have to use it.",
-    relay_rule4: "Two teams compete at once, and each team's finish time is measured.",
-    relay_rule5: "The team that finishes in the fastest time wins!",
+    relay_rule4: "Four teams face off in a tournament. Two semifinals (Team 1 vs Team 2, Team 3 vs Team 4), and the winners advance to the final.",
+    relay_rule5: "In each match both teams start at the same time, and the first to clear all 5 games wins. The team that wins the final is the champion!",
+    brk_eyebrow: "TOURNAMENT",
+    brk_title: "Tournament Bracket",
+    brk_semi: "SEMIFINAL",
+    brk_final: "FINAL",
+    brk_champ: "CHAMPION",
+    brk_t1: "Team 1", brk_t2: "Team 2", brk_t3: "Team 3", brk_t4: "Team 4",
+    brk_w1: "Winner of Semifinal 1",
+    brk_w2: "Winner of Semifinal 2",
+    brk_note: "In each match both teams start at the same time, and the first to clear all 5 games wins.",
     meet_eyebrow: "TEAM TIME", meet_title: "Team Meeting Time",
     meet_caption: "Discuss who will take each game and your team strategy (substitution chance)!",
     award_title: "Winner", award_lbl: "Winner",
@@ -1387,7 +1499,7 @@ const translations = {
     s8_people: "6 people",
     s8_note: "About 5 minutes per station, then move to the next on signal (rotate through all 5 stations)",
     s9_eyebrow: "ACTIVITY 2",
-    s9_title: "Relay Race",
+    s9_title: "Relay Tournament",
     s9_desc: "Considering skill level, regroup into 6 teams of 5 and run a head-to-head relay race between pairs of teams.",
     s9_rule1: "Each of the 5 team members is responsible for one game, in order",
     s9_rule2: "After finishing a game, pass a signal (e.g., a high-five) to the next player",
@@ -1429,8 +1541,17 @@ const translations = {
     relay_rule1: "5 bạn trong đội, mỗi bạn phụ trách một trò.",
     relay_rule2: "Phải qua được trò ở bước trước thì mới được sang bước tiếp theo.",
     relay_rule3: "Mỗi đội chỉ được dùng \"cơ hội thay người\" một lần. Khi cần một thành viên khác hỗ trợ, hãy giơ tay và hô \"Chance!\". Một thành viên không phụ trách môn nào khác có thể thay bạn thực hiện. Không bắt buộc phải dùng cơ hội này.",
-    relay_rule4: "Hai đội thi đấu cùng lúc; ban tổ chức sẽ ghi thời gian hoàn thành của từng đội.",
-    relay_rule5: "Đội hoàn thành nhanh nhất sẽ chiến thắng!",
+    relay_rule4: "Bốn đội thi đấu theo thể thức loại trực tiếp. Hai trận bán kết (Đội 1 - Đội 2, Đội 3 - Đội 4), đội thắng sẽ vào chung kết.",
+    relay_rule5: "Mỗi trận hai đội xuất phát cùng lúc, đội nào qua hết 5 trò trước sẽ thắng. Đội thắng trận chung kết là đội vô địch!",
+    brk_eyebrow: "GIẢI ĐẤU",
+    brk_title: "Sơ đồ thi đấu",
+    brk_semi: "BÁN KẾT",
+    brk_final: "CHUNG KẾT",
+    brk_champ: "VÔ ĐỊCH",
+    brk_t1: "Đội 1", brk_t2: "Đội 2", brk_t3: "Đội 3", brk_t4: "Đội 4",
+    brk_w1: "Đội thắng bán kết 1",
+    brk_w2: "Đội thắng bán kết 2",
+    brk_note: "Mỗi trận hai đội xuất phát cùng lúc, đội nào qua hết 5 trò trước sẽ thắng.",
     meet_eyebrow: "THỜI GIAN NHÓM", meet_title: "Thời Gian Họp Nhóm",
     meet_caption: "Hãy cùng bàn bạc về phần thi mỗi người sẽ phụ trách và chiến thuật của đội (cơ hội thay người) nhé!",
     award_title: "Vô Địch", award_lbl: "Winner",
@@ -1509,7 +1630,7 @@ const translations = {
     s8_people: "6 người",
     s8_note: "Mỗi trạm khoảng 5 phút → di chuyển sang trạm tiếp theo khi có hiệu lệnh (luân phiên qua cả 5 trạm)",
     s9_eyebrow: "HOẠT ĐỘNG 2",
-    s9_title: "Chạy tiếp sức",
+    s9_title: "Giải đấu tiếp sức",
     s9_desc: "Xét theo trình độ, chia lại thành 6 đội (5 người/đội) và thi tiếp sức đối kháng theo từng cặp đội.",
     s9_rule1: "Mỗi thành viên trong 5 người phụ trách một trò chơi theo đúng thứ tự",
     s9_rule2: "Sau khi hoàn thành một trò chơi, truyền hiệu lệnh (ví dụ: đập tay) cho người tiếp theo",
